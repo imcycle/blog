@@ -12,8 +12,8 @@ const defaultInit = {
   errorToast: true,
 }
 
-export default (input: RequestInfo, init: MyInit = defaultInit) => {
-  const { returnResponse, returnBoolean, errorToast } = init;
+export default (input: RequestInfo, init: MyInit = {}) => {
+  const { returnResponse, returnBoolean, errorToast } = { ...defaultInit, ...init };
   return fetch(input, {
     headers: {
       'Content-Type': 'application/json',
