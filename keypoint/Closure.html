@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Closure</title>
+</head>
+
+<body>
+
+</body>
+
+<script>
+
+  // 闭包就是能够读取其他函数内部变量的函数。
+
+  // 由于在Javascript语言中，只有函数内部的子函数才能读取局部变量，因此可以把闭包简单理解成"定义在一个函数内部的函数"。
+
+  // 所以，在本质上，闭包就是将函数内部和函数外部连接起来的一座桥梁。
+
+  // function a() {
+  //   var result = new Array();
+  //   for (var i = 0; i < 10; i++) {
+  //     result[i] = function (num) {
+  //       return function () {
+  //         return num;
+  //       };
+  //     }(i);
+  //   }
+  //   return result;
+  // }
+
+  // function f1() {
+  //   var n = 999;
+  //   nAdd = function () { n += 1 }
+  //   function f2() {
+  //     alert(n);
+  //   }
+  //   return f2;
+  // }
+  // var result = f1();
+  // result(); // 999
+  // nAdd();
+  // result(); // 1000
+
+  // 闭包的作用
+  // https://www.cnblogs.com/zzsdream/p/6473563.html
+</script>
+
+</html>
