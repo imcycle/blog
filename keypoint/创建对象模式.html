@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>创建对象模式</title>
+</head>
+
+<body>
+
+</body>
+
+<script>
+  /**
+   * 工厂模式
+   * 解决创建多个相似对象问题， 但是没有解决对象识别的问题（即怎样知道一个对象的类型）（也就是 instenceof Object）
+   */
+  function A() {
+    var o = new Object();
+    o.a = 1;
+    o.b = '2';
+    o.sayHello = function () {
+      alert('hello');
+    }
+    return o;
+  }
+  var objA = A();
+
+  /**
+   * 构造函数模式
+   * 解决了对象识别， 但创建多个对象 一些相同的方法没有提取， 如果相同方法放在全局， 则会污染全局
+   */
+  function B() {
+    this.a = 1;
+    this.b = '2';
+    this.sayHello = function () {
+      alert('hello');
+    }
+  }
+  var objB = new B();
+
+  /**
+   * 原型模式
+   * 放在原型中， 创建多个对象用的是同一个原型， 但是不合理， 只有公共的需要放在原型
+   */
+  function C() { }
+  C.prototype.a = 1;
+  C.prototype.b = '2';
+  C.prototype.sayHello = function () {
+    alert('hello');
+  };
+  var objC = new C();
+  // 评价 
+
+
+  /**
+   * 组合使用构造函数模式和原型模式
+   * 合理
+   */
+  function D() {
+    this.a = 1;
+    this.b = '2';
+  }
+  D.prototype.sayHello = function () {
+    alert('hello');
+  }
+  var objD = new D();
+
+
+  /**
+   * 用new关键字调用构造函数 创建对象时 如果有返回值， 且返回值是个对象， 则直接使用返回值， 否则执行构造函数
+   */
+  function A() {
+    this.a = 1;
+    return { b: 1 };
+  }
+  A();  // {b: 1}
+  new A();  // {b: 1}
+
+  function B() {
+    this.a = 1;
+    return '123';
+  }
+  B();  // "123"
+  new B();  // {a: 1}
+
+</script>
+
+</html>
