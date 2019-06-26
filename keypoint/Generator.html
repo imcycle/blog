@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Generator</title>
+</head>
+<script>
+  // Generator 函数是 ES6 提供的一种异步编程解决方案
+  //   * yield
+
+  // Generator.prototype.next()      返回一个由 yield表达式生成的值。
+  // Generator.prototype.return()   返回给定的值并结束生成器。
+  // Generator.prototype.throw()    向生成器抛出一个错误。
+
+  /**
+   * 基本用法
+   * .next() 返回值 {value: any, done: boolean}
+   * .next().value 值为 yield 后的东西
+   * yield返回值为 下次.next执行时参数
+   */
+  function* foo() {
+    yield 'First yield';
+    yield 'Second yield';
+    var a = yield 'Third yield';
+    console.log(a);
+    var b = yield 'Fourth yield';
+    console.log(a, b);
+    yield 'Fifth yield';
+    return 'return';
+  }
+  var g = foo();
+  g.next();  // { value: 'First yield', done: false }
+  g.next();  // { value: 'Second yield', done: false }
+  g.next();  // { value: 'Third yield', done: false }
+  g.next(1);  // { value: 'Fourth yield', done: false }
+  //1
+  g.next(2);  // { value: 'Fifth yield', done: false }
+  // 1 2
+  g.next();  // { value: 'return', done: true }
+
+
+  /**
+   * 执行器
+   */
+  // const run = (fn) => {
+  //   const gen = fn();
+  //   const next = (data) => {
+  //     const result = gen.next(data);
+  //     if (result.done) return;
+  //     result.value(next);
+  //   }
+  //   next();
+  // };
+
+  // function* foo() {
+  //   var a = yield function (callback) {
+  //     setTimeout(() => {
+  //       console.log('a yield')
+  //       callback(2);
+  //     }, 1000);
+  //   }
+  //   var b = yield function (callback) {
+  //     setTimeout(() => {
+  //       var c = a + b;
+  //       console.log(a, b, c)
+  //       callback(c);
+  //     }, 3000);
+  //   }
+  // }
+
+  // run(foo);
+
+</script>
+
+<body>
+
+</body>
+
+</html>
