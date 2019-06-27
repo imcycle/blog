@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Set&Map</title>
+</head>
+
+<body>
+
+</body>
+
+<script>
+  /**
+   * Set
+   */
+  // ES6 提供了新的数据结构 Set。它类似于数组，但是成员的值都是唯一的，没有重复的值。
+  // * Set里 NaN 等于自身
+
+  // 属性
+  // - Set.prototype.constructor：构造函数，默认就是Set函数。
+  // - Set.prototype.size：返回Set实例的成员总数。
+
+  // 四个操作方法
+  // - add(value) ：添加某个值，返回 Set 结构本身。
+  // - delete (value) ：删除某个值，返回一个布尔值，表示删除是否成功。
+  // - has(value) ：返回一个布尔值，表示该值是否为Set的成员。
+  // - clear() ：清除所有成员，没有返回值。
+
+  // 四个遍历方法
+  // - keys() ：返回键名的遍历器
+  // - values() ：返回键值的遍历器
+  // - entries() ：返回键值对的遍历器
+  // - forEach() ：使用回调函数遍历每个成员
+
+  // const s = new Set();
+  // [2, 3, 5, 4, 5, 2, 2].forEach(x => s.add(x));
+  // for (let i of s) {
+  //   console.log(i);
+  // }
+  // // 2 3 5 4
+
+
+
+
+  /**
+   * WeakSet
+   */
+  // WeakSet 的成员只能是对象
+  // WeakSet 中的对象都是弱引用，即垃圾回收机制不考虑 WeakSet 对该对象的引用，也就是说，如果其他对象都不再引用该对象，那么垃圾回收机制会自动回收该对象所占用的内存，不考虑该对象还存在于 WeakSet 之中.
+  // 三个方法
+  // - WeakSet.prototype.add(value) ：向 WeakSet 实例添加一个新成员。
+  // - WeakSet.prototype.delete(value) ：清除 WeakSet 实例的指定成员。
+  // - WeakSet.prototype.has(value) ：返回一个布尔值，表示某个值是否在 
+
+
+
+  /**
+   * Map
+   * key可以是任意类型
+   */
+  // （1）size 属性  size属性返回 Map 结构的成员总数。
+  // （2）set(key, value)  set方法设置键名key对应的键值为value，然后返回整个 Map 结构。如果key已经有值，则键值会被更新，否则就新生成该键。
+  // （3）get(key)  get方法读取key对应的键值，如果找不到key，返回undefined。
+  // （4）has(key)  has方法返回一个布尔值，表示某个键是否在当前 Map 对象之中。
+  // （5）delete (key)  delete方法删除某个键，返回true。如果删除失败，返回false。
+  // （6）clear()  clear方法清除所有成员，没有返回值。
+
+  // 遍历方法
+  // - keys() ：返回键名的遍历器。
+  // - values() ：返回键值的遍历器。
+  // - entries() ：返回所有成员的遍历器。
+  // - forEach() ：遍历 Map 的所有成员。
+
+
+
+  // 基本
+  // const m = new Map();
+  // const o = { p: 'Hello World' };
+
+  // m.set(o, 'content')
+  // m.get(o) // "content"
+
+  // m.has(o) // true
+  // m.delete(o) // true
+  // m.has(o) // false
+
+  // 初始化
+  // const map = new Map([
+  //   ['name', '张三'],
+  //   ['title', 'Author']
+  // ]);
+
+  // map.size // 2
+  // map.has('name') // true
+  // map.get('name') // "张三"
+  // map.has('title') // true
+  // map.get('title') // "Author"
+
+
+  // const set = new Set([
+  //   ['foo', 1],
+  //   ['bar', 2]
+  // ]);
+  // const m1 = new Map(set);
+  // m1.get('foo') // 1
+
+  // const m2 = new Map([['baz', 3]]);
+  // const m3 = new Map(m2);
+  // m3.get('baz') // 3
+
+
+  // 特殊
+  // let map = new Map();
+
+  // map.set(-0, 123);
+  // map.get(+0) // 123
+
+  // map.set(true, 1);
+  // map.set('true', 2);
+  // map.get(true) // 1
+
+  // map.set(undefined, 3);
+  // map.set(null, 4);
+  // map.get(undefined) // 3
+
+  // map.set(NaN, 123);
+  // map.get(NaN) // 123
+
+
+  // 遍历
+  // const map = new Map([
+  //   ['F', 'no'],
+  //   ['T', 'yes'],
+  // ]);
+
+  // for (let key of map.keys()) {
+  //   console.log(key);
+  // }
+  // // "F"
+  // // "T"
+
+  // for (let value of map.values()) {
+  //   console.log(value);
+  // }
+  // // "no"
+  // // "yes"
+
+  // for (let item of map.entries()) {
+  //   console.log(item[0], item[1]);
+  // }
+  // // "F" "no"
+  // // "T" "yes"
+
+  // // 或者
+  // for (let [key, value] of map.entries()) {
+  //   console.log(key, value);
+  // }
+  // // "F" "no"
+  // // "T" "yes"
+
+  // // 等同于使用map.entries()
+  // for (let [key, value] of map) {
+  //   console.log(key, value);
+  // }
+  // // "F" "no"
+  // // "T" "yes"
+
+
+  // Map转数组
+  // const map = new Map([
+  //   [1, 'one'],
+  //   [2, 'two'],
+  //   [3, 'three'],
+  // ]);
+
+  // [...map.keys()]
+  // // [1, 2, 3]
+
+  // [...map.values()]
+  // // ['one', 'two', 'three']
+
+  // [...map.entries()]
+  // // [[1,'one'], [2, 'two'], [3, 'three']]
+
+  // [...map]
+  // // [[1,'one'], [2, 'two'], [3, 'three']]
+
+
+  // forEach
+  // const reporter = {
+  //   report: function (key, value) {
+  //     console.log("Key: %s, Value: %s", key, value);
+  //   }
+  // };
+
+  // map.forEach(function (value, key, map) {
+  //   this.report(key, value);
+  // }, reporter);
+
+</script>
+
+</html>
