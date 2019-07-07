@@ -1,18 +1,11 @@
-import { message } from 'antd';
-
-interface MyInit extends RequestInit {
-  returnResponse?: boolean;  // 返回原数据 默认false  
-  returnBoolean?: boolean;   // 返回布尔   默认false
-  errorToast?: boolean;      // 错误toast  默认true
-}
 
 const defaultInit = {
-  returnResponse: false,
-  returnBoolean: false,
-  errorToast: true,
+  returnResponse: false,  // 返回原数据  默认false  
+  returnBoolean: false,   // 返回布尔    默认false
+  errorToast: true,       // 错误toast  默认true
 }
 
-export default (input: RequestInfo, init: MyInit = {}) => {
+export default (input, init = {}) => {
   const { returnResponse, returnBoolean, errorToast } = { ...defaultInit, ...init };
   return fetch(input, {
     headers: {
@@ -31,7 +24,7 @@ export default (input: RequestInfo, init: MyInit = {}) => {
         if (returnBoolean) return true;  // returnBoolean
         return res.data;
       } else {
-        if (errorToast) message.error(res.message);  // errorToast
+        if (errorToast) console.log('errorToast');  // errorToast
         return false;
       }
     })
