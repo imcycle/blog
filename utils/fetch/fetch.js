@@ -1,3 +1,7 @@
+// import {
+//   Toast
+// } from 'vant';
+
 const defaultInit = {
   returnResponse: false, // 返回原数据  默认false  
   returnBoolean: false, // 返回布尔    默认false
@@ -12,7 +16,9 @@ const startLoading = (loadingToast) => {
     return;
   }
   if (fetchCount === 0) {
-    // TODO loading toast show
+    // Toast.loading({
+    //   forbidClick: true
+    // });
   }
   fetchCount++;
 }
@@ -23,7 +29,7 @@ const endLoading = (loadingToast) => {
   }
   fetchCount--;
   if (fetchCount === 0) {
-    // TODO loading toast hidden
+    // Toast.clear();
   }
 }
 
@@ -43,18 +49,18 @@ export default (input, init = {}) => {
   return fetch(input, {
       headers: {
         'Content-Type': 'application/json',
-        'Duliday-Token': localStorage.DL_WO_token,
+        'Duliday-Token': localStorage.WM_token,
       },
       ...init,
     })
     .then(res => {
-      endLoading(loadingToast);
       if (returnResponse) { // returnResponse
         return res;
       }
       return res.json();
     })
     .then(res => {
+      endLoading(loadingToast);
       if (returnResponse) { // returnResponse
         return res;
       }
@@ -65,8 +71,7 @@ export default (input, init = {}) => {
         return res.data;
       } else {
         if (errorToast) { // errorToast
-          // TODO fail toast
-
+          // Toast.fail(res.error_msg || '失败');
         }
         return false;
       }
