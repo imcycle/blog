@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>依赖注入</title>
+</head>
+
+<body>
+
+</body>
+
+<script>
+  // 所谓依赖注入, 是指程序运行过程中, 如果需要调用另一个对象协助时, 无须在代码中创建被调用者, 而是依赖于外部的注入。
+
+  // 首先必须了解依赖。依赖就是指B类要用A类的方法(或属性) ，就称B依赖于A，那要调用方法肯定得有一个对象呀！
+  // 要解决从“没对象”到“有对象”的问题，有三种方式：
+
+  // 程序猿嘛，自己new一个
+  // 构造函数传入
+  // setter函数传入
+  // 其中第一种自给自足，自己生产依赖的东西。。。。后两种是靠别人给的，别人把依赖的东西“注入”给你。后两种方式的过程就叫做“依赖注入”了。。。
+
+  // A类，假设有人需要它
+  function A() { }
+  A.prototype.hello = function () { console.log("This is a"); }
+
+  // 自给自足的B类
+  function B() { }
+  B.prototype.talk = function () {
+    var a = new A();
+    a.hello();
+  }
+  new B().talk();
+
+  // 通过构造函数“注入”对象的B1类
+  function B1(a) { this.a = a; }
+  B1.prototype.talk = function () {
+    if (this.a) {
+      this.a.hello();
+    }
+  }
+  var a1 = new A();
+  new B1(a1).talk();
+
+  // 通过setter函数“注入”对象的B2类
+  function B2() { this.a = null; }
+  B2.prototype.setA = function (a) { this.a = a; }
+  B2.prototype.talk = function () {
+    if (this.a) {
+      this.a.hello();
+    }
+  }
+  var a2 = new A();
+  var b2 = new B2();
+  b2.setA(a2)
+  b2.talk();
+
+  // 总结，“依赖注入”就是需要什么对象，自己不去创建，而是把创建的过程放在了自己的外部。
+
+  // 有一些依赖注入框架，你可以声明需要的是什么对象，然后由框架来创建并注入给你。
+</script>
+
+</html>
