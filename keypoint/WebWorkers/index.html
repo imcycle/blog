@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>WebWorkers</title>
+</head>
+
+<body>
+  <div id="content">1</div>
+  <button onclick="startWorker()">开始 Worker</button>
+  <button onclick="stopWorker()">停止 Worker</button>
+</body>
+
+<script>
+  /**
+   * Web Workers
+   * 
+   * 兼容
+   * Internet Explorer 10, Firefox, Chrome, Safari 和 Opera 都支持Web workers.
+   * 
+   * 通过使用 Web Workers，Web应用程序可以在独立于主线程的后台线程中，运行一个脚本操作。这样做的好处是可以在独立线程中执行费时的处理任务，从而允许主线程（通常是UI线程）不会因此被阻塞/放慢。
+   * 你可以在 worker 线程中运行任意的代码，但注意存在一些例外：
+   * 直接在 worker 线程中操纵 DOM 元素；
+   * 或使用 window 对象中的某些方法和属性。
+   * 
+   * postMessage()  法来发送信息
+   * onmessage  这个 event handler来接收信息（传递的信息包含在 Message 这个事件的data属性内)
+   * terminate 终止 web worker，并释放浏览器/计算机资源
+   */
+  var w;
+
+  function startWorker() {
+    if (typeof (Worker) !== 'undefined') {
+      if (typeof (w) === "undefined") {
+        w = new Worker('./worker.js');
+      }
+
+      w.onmessage = function (event) {
+        document.getElementById('content').innerHTML = event.data;
+      }
+    } else {
+      document.getElementById('content').innerHTML = '抱歉，你的浏览器不支持 Web Workers...';
+    }
+  }
+
+  function stopWorker() {
+    w.terminate();  // 终止 Web Worker
+    w = undefined;
+  }
+
+</script>
+
+</html>
