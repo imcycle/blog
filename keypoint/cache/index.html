@@ -19,7 +19,17 @@
 </body>
 <script>
   /**
+   * application cache
+   * 使用 HTML5，通过创建 cache manifest 文件，可以轻松地创建 web 应用的离线版本
+   *
+   * 优点
+   * 离线浏览 - 用户可在应用离线时使用它们
+   * 速度 - 已缓存资源加载得更快
+   * 减少服务器负载 - 浏览器将只从服务器下载更新过或更改过的资源。
+   *
    * Internet Explorer 10, Firefox, Chrome, Safari 和 Opera 支持应用程序缓存.
+   * 注意: 浏览器对缓存数据的容量限制可能不太一样（某些浏览器设置的限制是每个站点 5MB）。
+   *
    *
    * 用法
    * <html lang="en" manifest="demo.appcache">
@@ -35,6 +45,9 @@
    * 此处放不需要缓存文件路径（*表示其余全部）
    * FALLBACK:
    * 失败重定向
+   *
+
+   *
    */
 </script>
 
