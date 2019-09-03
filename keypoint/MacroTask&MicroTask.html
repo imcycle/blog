@@ -33,12 +33,6 @@
 
 
   setTimeout(function () {
-    console.log(1)
-    new Promise(function (resolve, reject) {
-      console.log(2)
-      resolve()
-    })
-
     setTimeout(function () {
       console.log(3)
       new Promise(function (resolve, reject) {
@@ -46,6 +40,12 @@
         resolve()
       })
     }, 0)
+
+    console.log(1)
+    new Promise(function (resolve, reject) {
+      console.log(2)
+      resolve()
+    })
   }, 0)
 
 
