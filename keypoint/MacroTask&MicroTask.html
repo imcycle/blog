@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>宏观任务和微观任务</title>
+</head>
+
+<body>
+
+</body>
+
+<script>
+
+  /**
+   * 宿主：
+   * 宏观任务：宿主发起的任务为宏观任务，如setTimeout、setInterval、setImmediate，I/O
+   * 微观任务：JavaScript引擎发起的任务为微观任务,如Promise
+   * 
+   * 微观任务先执行
+   */
+
+
+  // setTimeout(function () {
+  //   console.log(1)
+  // }, 0)
+  // new Promise(function (resolve, reject) {
+  //   console.log(2)
+  //   resolve()
+  // })
+
+
+  setTimeout(function () {
+    console.log(1)
+    new Promise(function (resolve, reject) {
+      console.log(2)
+      resolve()
+    })
+
+    setTimeout(function () {
+      console.log(3)
+      new Promise(function (resolve, reject) {
+        console.log(4)
+        resolve()
+      })
+    }, 0)
+  }, 0)
+
+
+
+</script>
+
+</html>
