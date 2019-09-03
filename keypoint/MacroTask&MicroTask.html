@@ -32,24 +32,29 @@
   // })
 
 
+
   setTimeout(function () {
+    console.log(4)
+  }, 0)
 
+  new Promise(function (resolve, reject) {
+    console.log(1)
+    resolve()
+  })
+
+  console.log(2)
+
+  new Promise(function (resolve, reject) {
     setTimeout(function () {
-      new Promise(function (resolve, reject) {
-        console.log(3)
-        resolve()
-      })
-      console.log(4)
+      resolve(6)
+      console.log(5)
     }, 0)
-
-    new Promise(function (resolve, reject) {
-      console.log(1)
-      resolve()
+    console.log(3)
+  })
+    .then(res => {
+      console.log(res)
     })
 
-    console.log(2)
-
-  }, 0)
 
 
 
