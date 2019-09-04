@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>房贷计算器</title>
+  <style>
+    .item {
+      display: flex;
+      margin-bottom: 10px;
+    }
+
+    .item>div:nth-child(1) {
+      width: 80px;
+      text-align: right;
+    }
+
+    .item>div:nth-child(3) {
+      text-indent: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <form id="form">
+    <div class="item">
+      <div>贷款金额：</div>
+      <input type="text" name="amount" placeholder="请输入" />
+      <div>万元</div>
+    </div>
+    <div class="item">
+      <div>贷款年限：</div>
+      <input type="text" name="long" placeholder="请输入" />
+      <div>年</div>
+    </div>
+    <div class="item">
+      <div>年利率：</div>
+      <input type="text" name="rate" placeholder="请输入" />
+      <div>%</div>
+    </div>
+    <input type="submit" value="计算" />
+    <input id="resetButton" type="button" value="重置" />
+  </form>
+</body>
+
+<script>
+  window.onload = function () {
+    var form = document.getElementById('form');
+    var resetButton = document.getElementById('resetButton');
+
+    form.onsubmit = function (event) {
+      event.preventDefault();
+      var formData = new window.FormData(event.target);
+      var amount = formData.get('amount');
+      var long = formData.get('long');
+      var rate = formData.get('rate');
+      console.log(amount, amount, rate)
+      calc(amount, amount, rate)
+    }
+    resetButton.onclick = function () {
+      form.reset();
+    }
+
+    // var a = require('../utils/number-precision/number-precision.js');
+    // console.log(a)
+
+    var calc = function (amount, long, rate) {
+      var mouth = parseInt(long) * 12,
+        mouthrate = parseFloat(rate) / 12,
+        dknum = parseFloat(amount) * 10000;
+      //每月月供
+      var yuegong = (dknum * mouthrate * Math.pow((1 + mouthrate), mouth)) / (Math.pow((1 + mouthrate), mouth) - 1);
+      console.log(yuegong)
+    }
+
+  }
+
+</script>
+
+</html>
