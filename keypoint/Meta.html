@@ -5,8 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=width-device, initial-scale=1.0, user-scalable=no">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <meta http-equiv="refresh" content="300">
-  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <!-- <meta http-equiv="Refresh" content="2;URL=http://www.baidu.com"> -->
   <title>Meta</title>
 </head>
 
@@ -15,6 +14,11 @@
 </body>
 
 <script>
+  /**
+   * charset
+   *   <meta charset="UTF-8">
+   */
+
   /**
    * content 定义与 http-equiv 或 name 属性相关的元信息。
    */
@@ -40,13 +44,37 @@
 
   /**
    * http-equiv   把 content 属性关联到 HTTP 头部。
+   *   X-UA-Compatible  属性是 IE 浏览器在 IE8 版本开始提供的一个特性，允许开发者通过设置 meta 标记来规定 IE 浏览器在解析网页时使用的文档模式。
+   *      <meta http-equiv="X-UA-Compatible" content="IE=edge"/>  根据例子代码，IE浏览器将总是使用最新版本的文档模式，如用 IE8 访问就是 IE8 文档模式，用 IE9 访问就是 IE9 模式，用 IE10 访问就是 IE10 模式，用 IE11 访问就是 IE11 模式。
+   *        注意：此声明并不是多此一举，如果你不使用 IE=edge 标记，IE浏览器会根据你的网页内容采用兼容视图，可能采用更低版本。
+   *      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/> 这段代码的意思是，如果安装了 Google Chrome Frame （谷歌浏览器內嵌框架）则使用谷歌浏览器内核模式，否则使用最新的IE模式。
    *   content-type      规定文档的字符编码。        实例： <meta http-equiv="content-type" content="text/html; charset=UTF-8">
    *   default-style     规定要使用的预定义的样式表。 实例： <meta http-equiv="default-style" content="the document's preferred stylesheet">
-   *   refresh           定义文档自动刷新的时间间隔。 实例： <meta http-equiv="refresh" content="300">
+   *   refresh           定义文档自动刷新的时间间隔。 实例： <meta http-equiv="refresh" content="300">   or   <meta http-equiv="Refresh" content="2;URL=http://www.baidu.com">
    *   expires   可以用于设定网页的到期时间。一旦网页过期，必须到服务器上重新传输。 用法：<metahttp-equiv="expires"content="Fri,12Jan200118:18:18GMT">
-   *   Pragma    禁止浏览器从本地计算机的缓存中访问页面内容。  <metahttp-equiv="Pragma"content="no-cache">
-   * 
-   * 
+   *   Pragma    禁止浏览器从本地计算机的缓存中访问页面内容。注意：这样设定，访问者将无法脱机浏览。  <meta http-equiv="Pragma"content="no-cache">
+   *   Set-Cookie(cookie设定)    如果网页过期，那么存盘的cookie将被删除。    <meta http-equiv="Set-Cookie" content="cookievalue=xxx;expires=Friday,12-Jan-200118:18:18GMT；path=/">
+   *   Window-target(显示窗口的设定)  强制页面在当前窗口以独立页面显示。  注意：用来防止别人在框架里调用自己的页面。   <meta http-equiv="Window-target" content="_top">
+   *   Cache-Control指定请求和响应遵循的缓存机制。
+          Cache-Control指定请求和响应遵循的缓存机制。在请求消息或响应消息中设置Cache-Control并不会修改另一个消息处理过程中的缓存处理过程。请求时的缓存指令包括no-cache、no-store、max-age、max-stale、min-fresh、on
+
+          ly-if-cached，响应消息中的指令包括public、private、no-cache、no-store、no-transform、must-revalidate、proxy-revalidate、max-age。各个消息中的指令含义如下
+          Public指示响应可被任何缓存区缓存
+          Private指示对于单个用户的整个或部分响应消息，不能被共享缓存处理。这允许服务器仅仅描述当用户的部分响应消息，此响应消息对于其他用户的请求无效
+          no-cache指示请求或响应消息不能缓存
+          no-store用于防止重要的信息被无意的发布。在请求消息中发送将使得请求和响应消息都不使用缓存。
+          max-age指示客户机可以接收生存期不大于指定时间（以秒为单位）的响应
+          min-fresh指示客户机可以接收响应时间小于当前时间加上指定时间的响应
+          max-stale指示客户机可以接收超出超时期间的响应消息。如果指定max-stale消息的值，那么客户机可以接收超出超时期指定值之内的响应消息。
+   */
+
+  /**
+   * scheme 属性规定用于翻译 content 属性的值的方案（格式或 URI）。 
+   *  HTML5 不支持 <meta> scheme 属性。
+   *  <head>
+        <meta name="date" content="2009-01-02" scheme="YYYY-MM-DD">
+        <meta name="identifier" content="0-2345-6634-6" scheme="ISBN">
+      </head>
    */
 
   fetch('https://uni.duliday.com/api/common/meta')
