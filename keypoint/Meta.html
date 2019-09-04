@@ -3,13 +3,54 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=width-device, initial-scale=1.0, user-scalable=no">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta http-equiv="refresh" content="300">
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <title>Meta</title>
 </head>
 
 <body>
-
+  <div style="height: 100px; background: #eee; font-size: 12px">123</div>
 </body>
+
+<script>
+  /**
+   * content 定义与 http-equiv 或 name 属性相关的元信息。
+   */
+
+  /**
+   * name  把 content 属性关联到一个名称。
+   *   viewport
+   *   application-name     规定页面所代表的 Web 应用程序的名称。
+   *   author               规定文档的作者的名字。                                实例： <meta name="author" content="Hege Refsnes">
+   *   description          规定页面的描述。搜索引擎会把这个描述显示在搜索结果中。   实例： <meta name="description" content="Free web tutorials">
+   *   generator            规定用于生成文档的一个软件包（不用于手写页面）。         实例： <meta name="generator" content="FrontPage 4.0">
+   *   keyword              规定一个逗号分隔的关键词列表 - 相关的网页（告诉搜索引擎页面是与什么相关的）。     实例： <meta name="keywords" content="HTML, meta tag, tag reference">
+   */
+
+  // viewport
+  // width            控制 viewport 的大小，可以指定的一个值，如 600，或者特殊的值，如 device-width 为设备的宽度（单位为缩放为 100% 时的 CSS 的像素）。
+  // height           设置layout viewport  的高度，这个属性对我们并不重要，很少使用
+  // initial-scale	  设置页面的初始缩放值，为一个数字，可以带小数
+  // minimum-scale  	允许用户的最小缩放值，为一个数字，可以带小数
+  // maximum-scale	  允许用户的最大缩放值，为一个数字，可以带小数
+  // user-scalable	  是否允许用户进行缩放，值为 "no" 或 "yes", no 代表不允许，yes 代表允许
+
+
+  /**
+   * http-equiv   把 content 属性关联到 HTTP 头部。
+   *   content-type      规定文档的字符编码。        实例： <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+   *   default-style     规定要使用的预定义的样式表。 实例： <meta http-equiv="default-style" content="the document's preferred stylesheet">
+   *   refresh           定义文档自动刷新的时间间隔。 实例： <meta http-equiv="refresh" content="300">
+   *   expires   可以用于设定网页的到期时间。一旦网页过期，必须到服务器上重新传输。 用法：<metahttp-equiv="expires"content="Fri,12Jan200118:18:18GMT">
+   *   Pragma    禁止浏览器从本地计算机的缓存中访问页面内容。  <metahttp-equiv="Pragma"content="no-cache">
+   * 
+   * 
+   */
+
+  fetch('https://uni.duliday.com/api/common/meta')
+
+</script>
 
 </html>
