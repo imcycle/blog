@@ -14,6 +14,40 @@
 
 <script>
   /**
+    * 属性 getter 和 setter
+    * 由 getter 和 setter 定义的属性 称作‘存取器属性’(accessor property)
+    */
+  var o = {
+    // 普通的数据属性
+    data_prop: value,
+
+    // 存取器属性都是成对定义的函数
+    get accessor_prop() { },
+    set accessor_prop() { }
+  }
+
+
+  /**
+   * 属性的特征
+   */
+  // 数据属性特征
+  // value
+  // writable
+  // enumerable
+  // configurable
+
+  // 存取器属性特征
+  // get
+  // set
+  // enumerable
+  // configurable
+
+  // 属性描述符（property descriptor）
+
+
+
+
+  /**
    * Object.defineProperty()
    * 文档：https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty
    *
