@@ -40,10 +40,14 @@
   * 修改器方法
   * 下面的这些方法会改变调用它们的对象自身的值
   */
+  Array.prototype.flat()
+  // 方法会按照一个可指定的深度递归遍历数组，并将所有元素与遍历到的子数组中的元素合并为一个新数组返回。
+  Array.prototype.flatMap()
+  // 方法首先使用映射函数映射每个元素，然后将结果压缩成一个新数组。它与 map 和 深度值1的 flat 几乎相同，但 flatMap 通常在合并成一种方法的效率稍微高一些。
   Array.prototype.copyWithin()  // 实验性API
-  // 在数组内部，将一段元素序列拷贝到另一段元素序列上，覆盖原有的值。
+  // 浅复制数组的一部分到同一数组中的另一个位置，并返回它，不会改变原数组的长度。  arr.copyWithin(target[, start[, end]])
   Array.prototype.fill()  // 实验性API
-  // 将数组中指定区间的所有元素的值，都替换成某个固定的值。
+  // 用一个固定值填充一个数组中从起始索引到终止索引内的全部元素。不包括终止索引。  arr.fill(value[, start[, end]])
   Array.prototype.pop()
   // 删除数组的最后一个元素，并返回这个元素。
   Array.prototype.push()
