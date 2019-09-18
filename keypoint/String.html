@@ -47,6 +47,19 @@
   // 返回了字符串的长度。
 
   /** 跟HTML无关的方法 */
+
+  // 字符 3
+  // 判断 3
+  // 找下标 2
+  // 扩充 4
+  // 截取 3
+  // 数组 1
+  // 大小写 4
+  // 前后去空格 5
+  // 没有意义 4
+
+
+  /** 字符 */
   String.prototype.charAt()
   // 返回特定位置的字符。
   String.prototype.charCodeAt()
@@ -54,33 +67,29 @@
   String.prototype.codePointAt()
   // 返回使用UTF-16编码的给定位置的值的非负整数。
 
-
-  /** 查找 */
+  /** 是否满足 */
   String.prototype.startsWith()
   // 判断字符串的起始位置是否匹配其他字符串中的字符。
   String.prototype.endsWith()
   // 判断一个字符串的是否以给定字符串结尾，结果返回布尔值。
+  String.prototype.includes()
+  // 判断一个字符串里是否包含其他字符串。
+
+  /** 找下标 */
   String.prototype.indexOf()
   // 从字符串对象中返回首个被发现的给定值的索引值，如果没有找到则返回 - 1。
   String.prototype.lastIndexOf()
   // 从字符串对象中返回最后一个被发现的给定值的索引值，如果没有找到则返回 - 1。
-  String.prototype.includes()
-  // 判断一个字符串里是否包含其他字符串。
 
   /** 正则 */
   String.prototype.search()
   // 对正则表达式和指定字符串进行匹配搜索，返回第一个出现的匹配项的下标。
   String.prototype.match()
   // 使用正则表达式与字符串相比较。
+  String.prototype.replace()
+  // 被用来在正则表达式和字符串直接比较，然后用新的子串来替换被匹配的子串。
 
-
-  String.prototype.localeCompare()
-  // 返回一个数字表示是否引用字符串在排序中位于比较字符串的前面，后面，或者二者相同。
-  String.prototype.normalize()
-  // 返回调用字符串值的Unicode标准化形式。
-
-
-  /** 填充 */
+  /** 扩充 */
   String.prototype.padEnd()
   // 在当前字符串尾部填充指定的字符串， 直到达到指定的长度。 返回一个新的字符串。
   String.prototype.padStart()
@@ -90,18 +99,17 @@
   String.prototype.concat()
   // 连接两个字符串文本，并返回一个新的字符串。
 
-  /** 操作 */
-  String.prototype.replace()
-  // 被用来在正则表达式和字符串直接比较，然后用新的子串来替换被匹配的子串。
+  /** 截取 */
   String.prototype.slice()
   // 摘取一个字符串区域，返回一个新的字符串。
-  String.prototype.split()
-  // 通过分离字符串成字串，将字符串对象分割成字符串数组。
   String.prototype.substr()
   // 通过指定字符数返回在指定位置开始的字符串中的字符。
   String.prototype.substring()
   // 返回在字符串中指定两个下标之间的字符。
 
+  /** 数组 */
+  String.prototype.split()
+  // 通过分离字符串成字串，将字符串对象分割成字符串数组。
 
   /** 大小写转换 */
   String.prototype.toLocaleLowerCase()
@@ -127,6 +135,10 @@
   // 返回用字符串表示的特定对象。重写 Object.prototype.toString 方法。
   String.prototype.valueOf()
   // 返回特定对象的原始值。重写 Object.prototype.valueOf 方法。
+  String.prototype.localeCompare()
+  // 返回一个数字表示是否引用字符串在排序中位于比较字符串的前面，后面，或者二者相同。
+  String.prototype.normalize()
+  // 返回调用字符串值的Unicode标准化形式。
 
   // String.prototype[@@iterator]()
   // 返回一个新的迭代器对象，该对象遍历字符串值的索引位置，将每个索引值作为字符串值返回。
