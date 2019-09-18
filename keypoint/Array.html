@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <title>Array</title>
 </head>
 
 <body>
@@ -31,19 +31,27 @@
   /**
   * 方法
   */
-
-  Array.from()     // 从类数组对象或者可迭代对象中创建一个新的数组实例。
+  Array.from()     // 从类数组对象或者可迭代对象中创建一个新的数组实例。 Array.from(arrayLike[, mapFn[, thisArg]])
   Array.isArray()  // 用来判断某个变量是否是一个数组对象。
-  Array.of()       // 根据一组参数来创建新的数组实例，支持任意的参数数量和类型。
+  Array.of()       // 根据一组参数来创建新的数组实例，支持任意的参数数量和类型。  Array.of(element0[, element1[, ...[, elementN]]])
+
+  // 合并去重
+  // function aa() {
+  //   return [...[...arguments].flat()];
+  // }
+  // aa([1, 2], [2, 3])
+
+  // function aa() {
+  //   let arr = [...arguments].flat();
+  //   return Array.form(new Set(arr));
+  // }
+  // aa([1, 2], [2, 3])
+
 
   /**
-  * 修改器方法  11
+  * 修改器方法  9
   * 下面的这些方法会改变调用它们的对象自身的值
   */
-  Array.prototype.flat()
-  // 方法会按照一个可指定的深度递归遍历数组，并将所有元素与遍历到的子数组中的元素合并为一个新数组返回。
-  Array.prototype.flatMap()
-  // 方法首先使用映射函数映射每个元素，然后将结果压缩成一个新数组。它与 map 和 深度值1的 flat 几乎相同，但 flatMap 通常在合并成一种方法的效率稍微高一些。
   Array.prototype.copyWithin()  // 实验性API
   // 浅复制数组的一部分到同一数组中的另一个位置，并返回它，不会改变原数组的长度。  arr.copyWithin(target[, start[, end]])
   Array.prototype.fill()  // 实验性API
@@ -65,9 +73,13 @@
 
 
   /**
-  * 访问方法  8
+  * 访问方法  10
   * 下面的这些方法绝对不会改变调用它们的对象的值，只会返回一个新的数组或者返回一个其它的期望值。
   */
+  Array.prototype.flat()
+  // 方法会按照一个可指定的深度递归遍历数组，并将所有元素与遍历到的子数组中的元素合并为一个新数组返回。
+  Array.prototype.flatMap()
+  // 方法首先使用映射函数映射每个元素，然后将结果压缩成一个新数组。它与 map 和 深度值1的 flat 几乎相同，但 flatMap 通常在合并成一种方法的效率稍微高一些。
   Array.prototype.concat()
   // 返回一个由当前数组和其它若干个数组或者若干个非数组值组合而成的新数组。
   Array.prototype.slice()
@@ -123,32 +135,32 @@
 
 
 
-  var arr = [
-    { id: 1, value: 'a' },
-    { id: 2, value: 'b' },
-    { id: 3, value: 'c' },
-    { id: 4, value: 'd' },
-    { id: 5, value: 'e' },
-    { id: 6, value: 'e' },
-    { id: 7, value: 'f' },
-  ]
+  // var arr = [
+  //   { id: 1, value: 'a' },
+  //   { id: 2, value: 'b' },
+  //   { id: 3, value: 'c' },
+  //   { id: 4, value: 'd' },
+  //   { id: 5, value: 'e' },
+  //   { id: 6, value: 'e' },
+  //   { id: 7, value: 'f' },
+  // ]
 
-  // 1： 删除value为e的 
-  arr = arr.filter(d => d.value !== 'e');
+  // // 1： 删除value为e的 
+  // arr = arr.filter(d => d.value !== 'e');
 
-  // 2： 删除第一个value为e的
-  let index = arr.findIndex(d => d.value === 'e');
-  arr.splice(index, 1)
-  // 3： 删除最后一个value为e的
-  let index = arr.reverse().findIndex(d => d.value === 'e');
-  arr.splice(index, 1);
-  arr.reverse();
-  // 4： 找出所有value为e的
-  let newArr = arr.filter(d => d.value === 'e');
-  // 5： 找出第一个value为e的
-  let newArr = arr.find(d => d.value === 'e');
-  // 6： 找出最后一个value为e的
-  let newArr = arr.reverse().find(d => d.value === 'e').reverse();
+  // // 2： 删除第一个value为e的
+  // let index = arr.findIndex(d => d.value === 'e');
+  // arr.splice(index, 1)
+  // // 3： 删除最后一个value为e的
+  // let index = arr.reverse().findIndex(d => d.value === 'e');
+  // arr.splice(index, 1);
+  // arr.reverse();
+  // // 4： 找出所有value为e的
+  // let newArr = arr.filter(d => d.value === 'e');
+  // // 5： 找出第一个value为e的
+  // let newArr = arr.find(d => d.value === 'e');
+  // // 6： 找出最后一个value为e的
+  // let newArr = arr.reverse().find(d => d.value === 'e').reverse();
 
 
 
