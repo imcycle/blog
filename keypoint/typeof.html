@@ -18,6 +18,16 @@
    * https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/typeof
    */
 
+  // Undefined                                     "undefined"
+  // Null                                          "object"(见下文)
+  // Boolean                                       "boolean"
+  // Number                                        "number"
+  // BigInt                                        "bigint"
+  // String	                                       "string"
+  // Symbol(ECMAScript 2015 新增)	                  "symbol"
+  // 宿主对象（由 JS 环境提供）	                       取决于具体实现
+  // Function 对象(按照 ECMA - 262 规范实现[[Call]])	"function"
+  // 其他任何对象	                                   "object"
 
   // 数值
   typeof 37 === 'number';
@@ -79,6 +89,73 @@
   typeof function () { } === 'function';
   typeof class C { } === 'function'
   typeof Math.sin === 'function';
+
+
+
+
+
+  /**
+   * 附加信息
+   */
+
+  /** 
+   * null 
+   */
+  // JavaScript 诞生以来便如此
+  typeof null === 'object';
+  // 在 JavaScript 最初的实现中，JavaScript 中的值是由一个表示类型的标签和实际数据值表示的。对象的类型标签是 0。由于 null 代表的是空指针（大多数平台下值为 0x00），因此，null 的类型标签是 0，typeof null 也因此返回 "object"。
+
+  /** 
+   * 使用 new 操作符 
+   */
+  // 除 Function 外的所有构造函数的类型都是 'object'
+  var str = new String('String');
+  var num = new Number(100);
+
+  typeof str; // 返回 'object'
+  typeof num; // 返回 'object'
+
+  var func = new Function();
+
+  typeof func; // 返回 'function'
+
+  /**
+   * 语法中的括号
+   */
+  // 括号有无将决定表达式的类型。
+  var iData = 99;
+
+  typeof iData + ' Wisen'; // 'number Wisen'
+  typeof (iData + ' Wisen'); // 'string'
+
+
+  /**
+   * 正则表达式
+   * 对正则表达式字面量的类型判断在某些浏览器中不符合标准：
+   */
+  typeof /s/ === 'function'; // Chrome 1-12 , 不符合 ECMAScript 5.1
+  typeof /s/ === 'object'; // Firefox 5+ , 符合 ECMAScript 5.1
+
+  /**
+   * 错误
+   */
+  // 在 ECMAScript 2015 之前，typeof 总能保证对任何所给的操作数返回一个字符串。即便是没有声明的标识符，typeof 也能返回 'undefined'。使用 typeof 永远不会抛出错误。
+  // 但在加入了块级作用域的 let 和 const 之后，在其被声明之前对块中的 let 和 const 变量使用 typeof 会抛出一个 ReferenceError。块作用域变量在块的头部处于“暂存死区”，直至其被初始化，在这期间，访问变量将会引发错误。
+  typeof undeclaredVariable === 'undefined';
+
+  typeof newLetVariable; // ReferenceError
+  typeof newConstVariable; // ReferenceError
+  typeof newClass; // ReferenceError
+
+  let newLetVariable;
+  const newConstVariable = 'hello';
+  class newClass { };
+
+  /**
+   * 例外
+   * 当前所有的浏览器都暴露了一个类型为 undefined 的非标准宿主对象 document.all。
+   */
+  typeof document.all === 'undefined';
 </script>
 
 </html>
