@@ -28,12 +28,12 @@
     img.style.height = `${h}px`;
 
     var imgcat = document.getElementById('imgConcat');
-    imgcat.style.width = `${w * 2}px`;
-    imgcat.style.height = `${h * 2}px`;
+    imgcat.style.width = `${w}px`;
+    imgcat.style.height = `${h}px`;
 
     var canvas = document.createElement('canvas');
-    canvas.width = w;
-    canvas.height = h;
+    canvas.width = w * 2;
+    canvas.height = h * 2;
     var ctx = canvas.getContext('2d');
 
     var reader = new FileReader();
