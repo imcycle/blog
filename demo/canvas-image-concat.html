@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>图片合成</title>
+</head>
+
+<body>
+  <input id="ipt" type="file" accept="image/jpeg, image/png" />
+
+  <h3>原图片</h3>
+  <canvas id="canvas"></canvas>
+  <h3>合成后</h3>
+  <canvas id="canvasNew"></canvas>
+
+  <br />
+  <button id="btn">生成</button>
+  <p>长按下面图片保存</p>
+  <img id="imgConcat" />
+</body>
+
+<script>
+  window.onload = function () {
+    const [w, h] = [120, 120];
+    var ipt = document.getElementById('ipt');
+    var btn = document.getElementById('btn');
+    var imgcat = document.getElementById('imgConcat');
+    var canvas = document.getElementById('canvas');
+    canvas.width = w;
+    canvas.height = h;
+    var ctx = canvas.getContext('2d');
+
+    var canvasNew = document.getElementById('canvasNew');
+    canvasNew.width = w;
+    canvasNew.height = h;
+    var ctxNew = canvasNew.getContext('2d');
+
+    var reader = new FileReader();
+    var img = new Image();
+    // img.setAttribute("crossOrigin", 'anonymous');//需要放在图片赋值前，否则部分浏览器会报错
+    var imgTop = new Image();
+    imgTop.setAttribute("crossOrigin", 'anonymous')
+    // imgTop.setAttribute("crossOrigin", 'anonymous');//需要放在图片赋值前，否则部分浏览器会报错
+
+    img.addEventListener('load', function () {
+      ctx.drawImage(img, 0, 0, w, h)
+      ctxNew.drawImage(img, 0, 0, w, h)
+
+      imgTop.onload = function () {
+        ctxNew.drawImage(imgTop, 0, 0, w, h)
+      }
+      imgTop.src = '../images/national-flag.png';
+    })
+
+
+
+    reader.addEventListener('load', function (e) {
+      img.src = e.target.result;
+    })
+
+    ipt.addEventListener('change', function (e) {
+      reader.readAsDataURL(e.target.files[0]);
+    })
+
+    btn.addEventListener('click', function () {
+      // data = ctxNew.getImageData(0, 0, 200, 200);
+      // var compositeOperation = ctx.globalCompositeOperation;
+      ctxNew.globalCompositeOperation = "destination-over";
+      // ctx.fillStyle = '#ffffff';
+      // ctx.fillRect(0, 0, w, h);
+      console.log(canvasNew)
+      var imageData = canvasNew.toDataURL("image/png");
+      // ctx.clearRect(0, 0, w, h);
+      // ctx.putImageData(data, 0, 0);
+      // ctx.globalCompositeOperation = compositeOperation;
+
+      imgcat.src = imageData;
+
+
+    })
+
+  }
+
+</script>
+
+</html>
