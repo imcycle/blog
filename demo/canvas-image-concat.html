@@ -12,41 +12,42 @@
   <input id="ipt" type="file" accept="image/jpeg, image/png" />
 
   <h3>原图片</h3>
-  <canvas id="canvas"></canvas>
+  <img id="img" />
   <h3>合成后(长按图片保存)</h3>
   <img id="imgConcat" />
 </body>
 
 <script>
   window.onload = function () {
-    const [w, h] = [120, 120];
+    const [w, h] = [150, 150];
     var ipt = document.getElementById('ipt');
     var btn = document.getElementById('btn');
+
+    var img = document.getElementById('img');
+    img.style.width = `${w}px`;
+    img.style.height = `${h}px`;
+
     var imgcat = document.getElementById('imgConcat');
-    var canvas = document.getElementById('canvas');
+    imgcat.style.width = `${w}px`;
+    imgcat.style.height = `${h}px`;
+
+    var canvas = document.createElement('canvas');
     canvas.width = w;
     canvas.height = h;
     var ctx = canvas.getContext('2d');
 
-    var canvasNew = document.createElement('canvas');
-    canvasNew.width = w;
-    canvasNew.height = h;
-    var ctxNew = canvasNew.getContext('2d');
-
     var reader = new FileReader();
-    var img = new Image();
+
     var imgTop = new Image();
-    imgTop.setAttribute("crossOrigin", 'anonymous');
+    // imgTop.setAttribute("crossOrigin", 'anonymous');
 
     img.addEventListener('load', function () {
-      ctx.drawImage(img, 0, 0, w, h);
-      ctxNew.drawImage(img, 0, 0, w, h);
+      ctx.drawImage(img, 0, 0, w * 2, h * 2);
 
       imgTop.onload = function () {
-        ctxNew.drawImage(imgTop, 0, 0, w, h);
-
-        ctxNew.fillStyle = '#ffffff';
-        imgcat.src = canvasNew.toDataURL("image/png");
+        ctx.drawImage(imgTop, 0, 0, w * 2, h * 2);
+        ctx.fillStyle = '#ffffff';
+        imgcat.src = canvas.toDataURL("image/png");
       }
       imgTop.src = '../images/national-flag.png';
     })
