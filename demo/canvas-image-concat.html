@@ -39,18 +39,16 @@
     var reader = new FileReader();
 
     var imgTop = new Image();
+    imgTop.src = '../images/national-flag.png';
+
+
     imgTop.setAttribute("crossOrigin", 'anonymous');
 
     img.addEventListener('load', function () {
       ctx.drawImage(img, 0, 0, w * 3, h * 3);
-
-      imgTop.onload = function () {
-        alert(1)
-        ctx.drawImage(imgTop, 0, 0, w * 3, h * 3);
-        ctx.fillStyle = '#ffffff';
-        imgcat.src = canvas.toDataURL("image/png");
-      }
-      imgTop.src = '../images/national-flag.png';
+      ctx.drawImage(imgTop, 0, 0, w * 3, h * 3);
+      ctx.fillStyle = '#ffffff';
+      imgcat.src = canvas.toDataURL("image/png");
     })
 
     reader.addEventListener('load', function (e) {
