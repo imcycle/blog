@@ -12,9 +12,9 @@
   <input id="ipt" type="file" accept="image/jpeg, image/png" />
 
   <h3>原图片</h3>
-  <img id="img" />
+  <img id="img" style="border: 1px solid rgba(0, 0, 0, 0.15);" />
   <h3>合成后(长按图片保存)</h3>
-  <img id="imgConcat" />
+  <img id="imgConcat" style="border: 1px solid rgba(0, 0, 0, 0.15);" />
 </body>
 
 <script>
@@ -39,7 +39,7 @@
     var reader = new FileReader();
 
     var imgTop = new Image();
-    // imgTop.setAttribute("crossOrigin", 'anonymous');
+    imgTop.setAttribute("crossOrigin", 'anonymous');
 
     img.addEventListener('load', function () {
       ctx.drawImage(img, 0, 0, w * 2, h * 2);
