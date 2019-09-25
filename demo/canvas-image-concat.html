@@ -62,7 +62,7 @@
       sy = (ih - sHeight) / 2;
 
       ctx.fillStyle = '#ffffff';  // canvas 背景颜色
-      ctx.drawImage(img, sx, sy, sWidth, sHeight);  // canvas添加用户图
+      ctx.drawImage(img, sx, sy, sWidth, sHeight, 0, 0, w * s, h * s);  // canvas添加用户图
       imgCut.src = canvas.toDataURL("image/png");
 
       ctx.drawImage(imgTop, 0, 0, w * s, h * s);  // canvas添加头像框图
