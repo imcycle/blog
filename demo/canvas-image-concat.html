@@ -24,8 +24,8 @@
     var btn = document.getElementById('btn');
 
     var img = document.getElementById('img');
-    img.style.width = `${w}px`;
-    img.style.height = `${h}px`;
+    // img.style.width = `${w}px`;
+    // img.style.height = `${h}px`;
 
     var imgcat = document.getElementById('imgConcat');
     imgcat.style.width = `${w}px`;
@@ -40,12 +40,20 @@
 
     var imgTop = new Image();
     imgTop.src = '../images/national-flag.png';
-
-
     imgTop.setAttribute("crossOrigin", 'anonymous');
 
     img.addEventListener('load', function () {
-      ctx.drawImage(img, 0, 0, w * 3, h * 3);
+      var iw, ih;
+      iw = img.width;
+      ih = img.height;
+
+      iw / ih > w / h && (img.height = h);
+      iw / ih < w / h && (img.width = w);
+
+      iw = img.width;
+      ih = img.height;
+
+      ctx.drawImage(img, (iw - w) / 2, (ih - h) / 2, w * 3, h * 3);
       ctx.drawImage(imgTop, 0, 0, w * 3, h * 3);
       ctx.fillStyle = '#ffffff';
       imgcat.src = canvas.toDataURL("image/png");
