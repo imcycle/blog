@@ -19,7 +19,7 @@
 
 <script>
   window.onload = function () {
-    const [w, h] = [150, 150];
+    const [w, h, s] = [150, 150, 3];  // 生成图片宽,  生成图片高,  生成图片放大倍数
     var ipt = document.getElementById('ipt');
 
     // 剪裁后原图
@@ -32,9 +32,10 @@
     imgConcat.style.width = `${w}px`;
     imgConcat.style.height = `${h}px`;
 
+    // 合成画布
     var canvas = document.createElement('canvas');
-    canvas.width = w * 3;
-    canvas.height = h * 3;
+    canvas.width = w * s;
+    canvas.height = h * s;
     var ctx = canvas.getContext('2d');
 
     var reader = new FileReader();
@@ -44,25 +45,27 @@
     imgTop.setAttribute("crossOrigin", 'anonymous');
 
     img.addEventListener('load', function () {
-      var iw = img.width;
-      var ih = img.height;
+      var iw = img.width;   // 用户上传图片宽
+      var ih = img.height;  // 用户上传图片高
+      var r = w / h;        // 目标图片宽高比
 
+      // 计算裁剪
       var sx, sy, sWidth, sHeight;
-      if (iw / ih > w / h) {
+      if (iw / ih > r) {
         sHeight = ih;
-        sWidth = sHeight * w / h;
+        sWidth = sHeight * r;
       } else {
         sWidth = iw;
-        sHeight = sWidth * h / w;
+        sHeight = sWidth / r;
       }
       sx = (iw - sWidth) / 2;
       sy = (ih - sHeight) / 2;
 
-      ctx.fillStyle = '#ffffff';
-      ctx.drawImage(img, sx, sy, sWidth, sHeight, 0, 0, w * 3, h * 3);
+      ctx.fillStyle = '#ffffff';  // canvas 背景颜色
+      ctx.drawImage(img, sx, sy, sWidth, sHeight);  // canvas添加用户图
       imgCut.src = canvas.toDataURL("image/png");
 
-      ctx.drawImage(imgTop, 0, 0, w * 3, h * 3);
+      ctx.drawImage(imgTop, 0, 0, w * s, h * s);  // canvas添加头像框图
       imgConcat.src = canvas.toDataURL("image/png");
     })
 
