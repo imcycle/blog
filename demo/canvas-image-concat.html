@@ -12,7 +12,7 @@
   <h3>请选择图片</h3>
   <input id="ipt" type="file" accept=".png,.jpg,.jpeg,.gif" />
   <h3>原图片</h3>
-  <img id="img" style="border: 1px solid rgba(0, 0, 0, 0.15);" />
+  <img id="imgCut" style="border: 1px solid rgba(0, 0, 0, 0.15);" />
   <h3>合成后图片(长按图片保存)</h3>
   <img id="imgConcat" style="border: 1px solid rgba(0, 0, 0, 0.15);" />
 </body>
@@ -21,15 +21,16 @@
   window.onload = function () {
     const [w, h] = [150, 150];
     var ipt = document.getElementById('ipt');
-    var btn = document.getElementById('btn');
 
-    var img = document.getElementById('img');
-    // img.style.width = `${w}px`;
-    // img.style.height = `${h}px`;
+    // 剪裁后原图
+    var imgCut = document.getElementById('imgCut');
+    imgCut.style.width = `${w}px`;
+    imgCut.style.height = `${h}px`;
 
-    var imgcat = document.getElementById('imgConcat');
-    imgcat.style.width = `${w}px`;
-    imgcat.style.height = `${h}px`;
+    // 剪裁后合成图
+    var imgConcat = document.getElementById('imgConcat');
+    imgConcat.style.width = `${w}px`;
+    imgConcat.style.height = `${h}px`;
 
     var canvas = document.createElement('canvas');
     canvas.width = w * 3;
@@ -37,8 +38,8 @@
     var ctx = canvas.getContext('2d');
 
     var reader = new FileReader();
-
-    var imgTop = new Image();
+    var img = new Image();  // 用户上传图
+    var imgTop = new Image();  // 头像框图
     imgTop.src = '../images/national-flag.png';
     imgTop.setAttribute("crossOrigin", 'anonymous');
 
@@ -57,10 +58,12 @@
       sx = (iw - sWidth) / 2;
       sy = (ih - sHeight) / 2;
 
-      ctx.drawImage(img, sx, sy, sWidth, sHeight, 0, 0, w * 3, h * 3);
-      ctx.drawImage(imgTop, 0, 0, w * 3, h * 3);
       ctx.fillStyle = '#ffffff';
-      imgcat.src = canvas.toDataURL("image/png");
+      ctx.drawImage(img, sx, sy, sWidth, sHeight, 0, 0, w * 3, h * 3);
+      imgCut.src = canvas.toDataURL("image/png");
+
+      ctx.drawImage(imgTop, 0, 0, w * 3, h * 3);
+      imgConcat.src = canvas.toDataURL("image/png");
     })
 
     reader.addEventListener('load', function (e) {
