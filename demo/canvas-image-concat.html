@@ -43,17 +43,21 @@
     imgTop.setAttribute("crossOrigin", 'anonymous');
 
     img.addEventListener('load', function () {
-      var iw, ih;
-      iw = img.width;
-      ih = img.height;
+      var iw = img.width;
+      var ih = img.height;
 
-      iw / ih > w / h && (img.height = h);
-      iw / ih < w / h && (img.width = w);
+      var sx, sy, sWidth, sHeight;
+      if (iw / ih > w / h) {
+        sHeight = ih;
+        sWidth = sHeight * w / h;
+      } else {
+        sWidth = iw;
+        sHeight = sWidth * h / w;
+      }
+      sx = (iw - sWidth) / 2;
+      sy = (ih - sHeight) / 2;
 
-      iw = img.width;
-      ih = img.height;
-
-      ctx.drawImage(img, (iw - w) / 2, (ih - h) / 2, w * 3, h * 3);
+      ctx.drawImage(img, sx, sy, sWidth, sHeight, 0, 0, w * 3, h * 3);
       ctx.drawImage(imgTop, 0, 0, w * 3, h * 3);
       ctx.fillStyle = '#ffffff';
       imgcat.src = canvas.toDataURL("image/png");
