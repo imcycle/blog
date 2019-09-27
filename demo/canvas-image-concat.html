@@ -14,13 +14,14 @@
   <h3>剪裁后图片</h3>
   <img id="imgCut" style="border: 1px solid rgba(0, 0, 0, 0.15);" />
   <h3>合成后图片(长按图片保存)</h3>
+  <button id='btn' style="margin-bottom: 10px;">切换头像框</button>
+  <br />
   <img id="imgConcat" style="border: 1px solid rgba(0, 0, 0, 0.15);" />
 </body>
 
 <script>
   window.onload = function () {
     const [w, h, s] = [150, 150, 3];  // 生成图片宽,  生成图片高,  生成图片放大倍数
-    var ipt = document.getElementById('ipt');
 
     // 剪裁后原图
     var imgCut = document.getElementById('imgCut');
@@ -38,15 +39,48 @@
     canvas.height = h * s;
     var ctx = canvas.getContext('2d');
 
-    var reader = new FileReader();
-    var img = new Image();  // 用户上传图
+    // 头像框路径
+    var imgTopPathList = [
+      '../images/national-flag.png',
+      '../images/year70.png',
+    ];  // 头像框列表
+    var imgTopPathIndex = 0;
     var imgTop = new Image();  // 头像框图
-    imgTop.src = '../images/national-flag.png';
     imgTop.setAttribute("crossOrigin", 'anonymous');
+    imgTop.src = imgTopPathList[imgTopPathIndex];
+    imgTop.addEventListener('load', function () {
+      exportImg();
+    })
 
+    // 用户上传图
+    var img = new Image();
     img.addEventListener('load', function () {
+      exportImg();
+    })
+
+    // 读文件
+    var reader = new FileReader();
+    reader.addEventListener('load', function (e) {
+      img.src = e.target.result;
+    })
+
+    // 切换用户上传图片
+    var ipt = document.getElementById('ipt');
+    ipt.addEventListener('change', function (e) {
+      reader.readAsDataURL(e.target.files[0]);
+    })
+
+    // 切换头像框
+    var btn = document.getElementById('btn');
+    btn.addEventListener('click', function (e) {
+      (imgTopPathIndex === imgTopPathList.length - 1) ? imgTopPathIndex = 0 : imgTopPathIndex++;
+      imgTop.src = imgTopPathList[imgTopPathIndex];
+    })
+
+    function exportImg() {
       var iw = img.width;   // 用户上传图片宽
       var ih = img.height;  // 用户上传图片高
+      if (!iw || !ih) return;
       var r = w / h;        // 目标图片宽高比
 
       // 计算裁剪
@@ -67,15 +101,7 @@
 
       ctx.drawImage(imgTop, 0, 0, w * s, h * s);  // canvas添加头像框图
       imgConcat.src = canvas.toDataURL("image/png");
-    })
-
-    reader.addEventListener('load', function (e) {
-      img.src = e.target.result;
-    })
-
-    ipt.addEventListener('change', function (e) {
-      reader.readAsDataURL(e.target.files[0]);
-    })
+    }
 
   }
 
