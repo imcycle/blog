@@ -169,21 +169,20 @@
   var shellSort = function (originalArray) {
     var arr = [...originalArray];
 
-    let gap = Math.floor(arr.length / 2);  // 4
+    let gap = Math.floor(arr.length / 2);
 
     while (gap > 0) {
-      2
       for (let i = 0; i < (arr.length - gap); i += 1) {
-        let currentIndex = i;
-        let gapShiftedIndex = i + gap;
+        let current = i;
+        let gapShifted = i + gap;
 
-        while (currentIndex >= 0) {
-          if (arr[currentIndex] > arr[gapShiftedIndex]) {
-            [arr[currentIndex], arr[gapShiftedIndex]] = [arr[gapShiftedIndex], arr[currentIndex]];
+        while (current >= 0) {
+          if (arr[current] > arr[gapShifted]) {
+            [arr[current], arr[gapShifted]] = [arr[gapShifted], arr[current]];
           }
 
-          gapShiftedIndex = currentIndex;
-          currentIndex -= gap;
+          gapShifted = current;
+          current -= gap;
         }
       }
 
