@@ -17,6 +17,10 @@
       height: 100%;
       overflow: hidden;
     }
+
+    #canvas {
+      background: #000;
+    }
   </style>
 </head>
 
@@ -32,7 +36,7 @@
     canvas.height = height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
     var ctx = canvas.getContext('2d');
     var num = Math.ceil(width / 10);
-    var y = Array(num).join(0).split('');
+    var y = Array(num).fill('0');
     var draw = function () {
       ctx.fillStyle = 'rgba(0,0,0,.05)'; //核心代码，创建黑色背景，透明度为0.05的填充色。
       ctx.fillRect(0, 0, width, height);
