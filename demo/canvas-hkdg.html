@@ -15,108 +15,47 @@
     html,
     body {
       height: 100%;
-    }
-
-    #cvs {
-      background: #000;
+      overflow: hidden;
     }
   </style>
 </head>
 
 <body>
-  <canvas id="cvs"></canvas>
+  <canvas id="canvas"></canvas>
 </body>
 
 <script>
   window.onload = function () {
-    class Barrage {
-      constructor(canvas) {
-        this.canvas = document.getElementById(canvas);
-        this.w = cvs.width = document.body.clientWidth;
-        this.h = cvs.height = document.body.clientHeight;
-        this.ctx = this.canvas.getContext('2d');
-        this.ctx.font = '20px Microsoft YaHei';
-        this.barrageList = [];
-      }
-
-      //添加弹幕列表
-      shoot(value) {
-        let top = this.getTop();
-        let color = this.getColor();
-        let offset = this.getOffset();
-        let width = Math.ceil(this.ctx.measureText(value).width);
-
-        let barrage = {
-          value: value,
-          top: top,
-          left: this.w,
-          color: color,
-          offset: offset,
-          width: width
+    var width, height,
+      canvas = document.getElementById("canvas");
+    canvas.width = width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+    canvas.height = height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+    var ctx = canvas.getContext('2d');
+    var num = Math.ceil(width / 10);
+    var y = Array(num).join(0).split('');
+    var draw = function () {
+      ctx.fillStyle = 'rgba(0,0,0,.05)'; //核心代码，创建黑色背景，透明度为0.05的填充色。
+      ctx.fillRect(0, 0, width, height);
+      ctx.fillStyle = '#0f0'; //设置了字体颜色为绿色
+      ctx.font = '10px Microsoft YaHei';//设置字体大小与family
+      for (i = 0; i < num; i++) {
+        var x = (i * 10) + 10;
+        text = String.fromCharCode(65 + Math.random() * 62);
+        var y1 = y[i];
+        ctx.fillText(text, x, y1);
+        if (y1 > Math.random() * 10 * height) {
+          y[i] = 0;
+        } else {
+          y[i] = parseInt(y[i]) + 10;
         }
-        this.barrageList.push(barrage);
       }
+    };
 
-      //开始绘制
-      draw() {
-        if (this.barrageList.length) {
-          this.ctx.clearRect(0, 0, this.w, this.h);
-          for (let i = 0; i < this.barrageList.length; i++) {
-            let b = this.barrageList[i];
-            if (b.left + b.width <= 0) {
-              this.barrageList.splice(i, 1);
-              i--;
-              continue;
-            }
-            b.left -= b.offset;
-            this.drawText(b);
-          }
-        }
-        requestAnimationFrame(this.draw.bind(this));
-      }
+    (function () {
+      setInterval(draw, 30);
+    })();
 
-      //绘制文字
-      drawText(barrage) {
-        this.ctx.fillStyle = barrage.color;
-        this.ctx.fillText(barrage.value, barrage.left, barrage.top);
-      }
-
-      //获取随机颜色
-      getColor() {
-        return '#' + Math.floor(Math.random() * 0xffffff).toString(16);
-      }
-
-      //获取随机top
-      getTop() {
-        //canvas绘制文字x,y坐标是按文字左下角计算，预留30px
-        return Math.floor(Math.random() * (this.h - 30)) + 30;
-      }
-
-      //获取偏移量
-      getOffset() {
-        return +(Math.random() * 4).toFixed(1) + 1;
-      }
-
-    }
-
-    let barrage = new Barrage('cvs');
-    barrage.draw();
-
-    const textList = ['弹幕', '666', '233333333',
-      'javascript', 'html', 'css', '前端框架', 'Vue', 'React',
-      'Angular', '测试弹幕效果', '弹幕', '666', '233333333',
-      'javascript', 'html', 'css', '前端框架', 'Vue', 'React',
-      'Angular', '测试弹幕效果', '弹幕', '666', '233333333',
-      'javascript', 'html', 'css', '前端框架', 'Vue', 'React',
-      'Angular', '测试弹幕效果'
-    ];
-
-    textList.forEach((t) => {
-      barrage.shoot(t);
-    })
   }
-
-
 </script>
 
 </html>
