@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Canvas弹幕</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      padding: 20px;
+    }
+
+    #box {
+      position: relative;
+    }
+
+    #video {
+      width: 360px;
+      height: 280px;
+      background: #000;
+      margin-bottom: 10px;
+    }
+
+    #canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    #txta {
+      display: block;
+      width: 360px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="box">
+    <div id="video"></div>
+    <canvas id="canvas" width="360" height="280">
+      您的浏览器不支持canvas标签。
+    </canvas>
+  </div>
+  <textarea id="txta" rows="6"></textarea>
+  <button id="btn">发送</button>
+</body>
+
+<script>
+  window.onload = function () {
+    class Barrage {
+      constructor(canvas) {
+        this.canvas = document.getElementById(canvas);
+        let rect = this.canvas.getBoundingClientRect();
+        this.w = rect.right - rect.left;
+        this.h = rect.bottom - rect.top;
+        this.ctx = this.canvas.getContext('2d');
+        this.ctx.font = '20px Microsoft YaHei';
+        this.barrageList = [];
+      }
+
+      //添加弹幕列表
+      shoot(value) {
+        let top = this.getTop();
+        let color = this.getColor();
+        let offset = this.getOffset();
+        let width = Math.ceil(this.ctx.measureText(value).width);
+
+        let barrage = {
+          value: value,
+          top: top,
+          left: this.w,
+          color: color,
+          offset: offset,
+          width: width
+        }
+        this.barrageList.push(barrage);
+      }
+
+      //开始绘制
+      draw() {
+        if (this.barrageList.length) {
+          this.ctx.clearRect(0, 0, this.w, this.h);
+          for (let i = 0; i < this.barrageList.length; i++) {
+            let b = this.barrageList[i];
+            if (b.left + b.width <= 0) {
+              this.barrageList.splice(i, 1);
+              i--;
+              continue;
+            }
+            b.left -= b.offset;
+            this.drawText(b);
+          }
+        }
+        requestAnimationFrame(this.draw.bind(this));
+      }
+
+      //绘制文字
+      drawText(barrage) {
+        this.ctx.fillStyle = barrage.color;
+        this.ctx.fillText(barrage.value, barrage.left, barrage.top);
+      }
+
+      //获取随机颜色
+      getColor() {
+        return '#' + Math.floor(Math.random() * 0xffffff).toString(16);
+      }
+
+      //获取随机top
+      getTop() {
+        return Math.floor(Math.random() * this.h);
+      }
+
+      //获取偏移量
+      getOffset() {
+        return +(Math.random() * 4).toFixed(1) + 1;
+      }
+
+    }
+
+    let barrage = new Barrage('canvas');
+    barrage.draw();
+
+    const textList = [
+      '我是弹幕', '这电影好看', '贼鸡儿好看',
+      '不错不错', '很好很好', '我是弹幕我是弹幕', '到此一游',
+      '我是弹幕', '这电影好看', '贼鸡儿好看',
+      '不错不错', '很好很好', '我是弹幕我是弹幕', '到此一游',
+      '我是弹幕', '这电影好看', '贼鸡儿好看',
+      '不错不错', '很好很好', '我是弹幕我是弹幕', '到此一游',
+    ];
+
+    textList.forEach((t) => {
+      barrage.shoot(t);
+    })
+
+
+
+
+    var txta = document.getElementById('txta');
+    var btn = document.getElementById('btn');
+
+    btn.onclick = function () {
+      barrage.shoot(txta.value);
+    }
+  }
+
+
+</script>
+
+</html>

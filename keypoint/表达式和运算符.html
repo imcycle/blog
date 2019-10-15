@@ -16,6 +16,7 @@
   /**
    * 主要表达式
    * JavaScript中基本关键字和常用表达式。
+   * https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators
    */
   // this
   // this 关键字指向函数的执行上下文。
@@ -228,14 +229,21 @@
   }
 
   // ==
-  1 == true               // true
-  0 == false              // true
-  null == undefined       // true    null undefined 只等于自身和互相
-  0 == "000"              // true
-  1 == "001"              // true
-  "001" == true           // true
-  0.3 + 0.7 == true       // true
-  0.3 + 0.6 + 0.1 == true // false
+  1 == true;               // true
+  0 == false;              // true
+  null == undefined;       // true    null undefined 只等于自身和互相
+  0 == "000";              // true
+  1 == "001";              // true
+  "001" == true;           // true
+  0.3 + 0.7 == true;       // true
+  0.3 + 0.6 + 0.1 == true; // false
+  [] == 0;                 // true   ?????
+  [] == '';                // true
+  [] == false;             // true
+  !![];                    // true
+
+  // 隐式转换
+  // todo。。
 
   // in
   // 如果指定的属性在指定的对象或其原型链中，则in 运算符返回true。

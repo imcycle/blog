@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>排序</title>
+</head>
+
+<body>
+
+</body>
+
+<script>
+
+  /**
+   * 冒泡排序
+   * 选择排序
+   * 插入排序
+   * 堆排序
+   * 归并排序
+   * 快速排序
+   * 希尔排序
+   */
+
+  /**
+   * 冒泡排序
+   *   先把最大的冒泡到最后
+   */
+  var bubbleSort = function (originalArray) {
+    var arr = [...originalArray];
+
+    for (let i = 1; i < arr.length; i += 1) {
+      for (let j = 1; j < arr.length - i; j += 1) {
+        if (arr[j] > arr[j + 1]) {
+          [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+        }
+      }
+    }
+
+    return arr;
+  }
+
+  /**
+   * 选择排序
+   *   先找出最小的排在首位
+   */
+  var selectionSort = function (originalArray) {
+    var arr = [...originalArray];
+
+    for (let i = 0; i < arr.length - 1; i += 1) {
+      let minIndex = i;
+
+      for (let j = i + 1; j < arr.length; j += 1) {
+        if (arr[j] < arr[minIndex]) {
+          minIndex = j;
+        }
+      }
+
+      if (minIndex !== i) {
+        [arr[i], arr[minIndex]] = [arr[minIndex], arr[i]];
+      }
+    }
+
+    return arr;
+  }
+
+  /**
+   * 插入排序
+   */
+  var insertionSort = function (originalArray) {
+    var arr = [...originalArray];
+
+    for (let i = 0; i < arr.length; i++) {
+      let currentIndex = i;
+
+      while (
+        arr[currentIndex - 1] !== undefined
+        && arr[currentIndex] < arr[currentIndex - 1]
+      ) {
+        [arr[currentIndex - 1], arr[currentIndex]] = [arr[currentIndex], arr[currentIndex - 1]]
+
+        currentIndex -= 1;
+      }
+
+    }
+
+    return arr;
+  }
+
+  insertionSort([5, 7, 3, 1, 4, 8, 0, 9, 2])
+
+
+  /**
+   * 堆排序
+   */
+  // var heapSort = function (originalArray) {
+  //   var arr = [...originalArray];
+
+  //   while (!minHeap.isEmpty()) {
+  //     const nextMinElement = minHeap.poll();
+
+  //     // Call visiting callback.
+  //     this.callbacks.visitingCallback(nextMinElement);
+
+  //     sortedArray.push(nextMinElement);
+  //   }
+
+  //   return arr;
+  // }
+
+
+  /**
+   * 归并排序
+   */
+  var mergeSort = function (arr) {
+    if (arr.length <= 1) return arr;
+
+    const middleIndex = Math.floor(arr.length / 2);
+    const left = arr.slice(0, middleIndex);
+    const right = arr.slice(middleIndex, arr.length);
+
+    const leftSorted = mergeSort(left);
+    const rightSorted = mergeSort(right);
+
+    return mergeSorted(leftSorted, rightSorted);
+  }
+
+  var mergeSorted = function (left, right) {
+    let sorted = [];
+
+    while (left.length && right.length) {
+      if (left[0] < right[0]) {
+        sorted.push(left.shift());
+      } else {
+        sorted.push(right.shift());
+      }
+    }
+
+    if (left.length) {
+      sorted = sorted.concat(left);
+    }
+
+    if (right.length) {
+      sorted = sorted.concat(right);
+    }
+
+    return sorted;
+  }
+
+  mergeSort([5, 7, 3, 1, 4, 8, 0, 9, 2])
+
+  /**
+   * 快速排序
+   */
+  var quickSort = function (originalArray) {
+    var arr = [...originalArray];
+
+    if (arr.length <= 1) return arr;
+
+    var first = arr.shift();
+    var left = [];
+    var right = [];
+
+    arr.forEach((item, index) => {
+      if (item <= first) {
+        left.push(item);
+      } else {
+        right.push(item);
+      }
+    })
+
+    return [...quickSort(left), first, ...quickSort(right)];
+  }
+
+  quickSort([5, 7, 3, 1, 4, 8, 0, 9, 2])
+
+  /**
+   * 希尔排序
+   */
+  var shellSort = function (originalArray) {
+    var arr = [...originalArray];
+
+    let gap = Math.floor(arr.length / 2);
+
+    while (gap > 0) {
+      for (let i = 0; i < (arr.length - gap); i += 1) {
+        let current = i;
+        let gapShifted = i + gap;
+
+        while (current >= 0) {
+          if (arr[current] > arr[gapShifted]) {
+            [arr[current], arr[gapShifted]] = [arr[gapShifted], arr[current]];
+          }
+
+          gapShifted = current;
+          current -= gap;
+        }
+      }
+
+      gap = Math.floor(gap / 2);
+    }
+
+    return arr;
+  }
+
+  shellSort([5, 7, 3, 1, 4, 8, 0, 9, 2])
+
+
+
+
+
+
+</script>
+
+</html>
