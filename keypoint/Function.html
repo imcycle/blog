@@ -67,6 +67,43 @@
    * 实例
    * Function 实例从 Function.prototype 继承了一些属性和方法。 同其他构造函数一样， 你可以改变构造函数的原型从而使得所有的Function实例的属性和方法发生改变。
    */
+
+
+
+
+  /** 
+   * apply 和 call 类似，  区别是第二个参数不同
+   * apply, call 执行函数   bind返回新函数
+   * if (thisArg == undefined | null) this = window，
+   * if (thisArg == number | boolean | string) this = new Number() | new Boolean() | new String()
+   */
+  // func.apply(thisArg, [argsArray])
+  // func.bind(thisArg[, arg1[, arg2[, ...]]])
+  // func.call(thisArg, arg1, arg2, ...)
+
+  var o1 = {
+    a: 1,
+    b: function (x, y) {
+      console.log(this.a, x, y);
+    }
+  }
+  var o2 = {
+    a: 2,
+  }
+  var f = o1.b;
+  f(7, 8); // undefined 7 8
+  var f1 = f.bind(o2);
+  var f2 = f.bind(o2, 4);
+  f1(7, 8) // 2 7 8
+  f2(5, 6) // 2 4 5
+
+  o1.b(7, 8); // 1 7 8
+  o1.b.apply(o2, [7, 8]);  // 2 7 8
+  o1.b.call(o2, 7, 8);  // 2 7 8
+
+
+
+
 </script>
 
 </html>
