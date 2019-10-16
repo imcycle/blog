@@ -63,15 +63,8 @@
 
 
 
-  /**
-   * 实例
-   * Function 实例从 Function.prototype 继承了一些属性和方法。 同其他构造函数一样， 你可以改变构造函数的原型从而使得所有的Function实例的属性和方法发生改变。
-   */
-
-
-
-
   /** 
+   * apply bind call
    * apply 和 call 类似，  区别是第二个参数不同
    * apply, call 执行函数   bind返回新函数
    * if (thisArg == undefined | null) this = window，
@@ -100,6 +93,20 @@
   o1.b(7, 8); // 1 7 8
   o1.b.apply(o2, [7, 8]);  // 2 7 8
   o1.b.call(o2, 7, 8);  // 2 7 8
+
+
+
+  /**
+   * 继承
+   * 每个实例对象（ object ）都有一个私有属性（称之为 __proto__ ）指向它的构造函数的原型对象（prototype ）。
+     该原型对象也有一个自己的原型对象( __proto__ ) ，层层向上直到一个对象的原型对象为 null。
+     根据定义，null 没有原型，并作为这个原型链中的最后一个环节。
+   * 几乎所有 JavaScript 中的对象都是位于原型链顶端的 Object 的实例。
+   * 特例：new Object(null) 没有__proto__。
+   * 在 ES2015/ES6 中引入了 class 关键字，但那只是语法糖，JavaScript 仍然是基于原型的
+   */
+
+
 
 
 
