@@ -1,4 +1,5 @@
 /**
+ * JavaScript 标准的内置对象
  * 全局的对象（ global objects ）或称标准内置对象，
  * 不要和 "全局对象（global object）" 混淆。
  * 这里说的全局的对象是说在全局作用域里的对象。
