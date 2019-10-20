@@ -1,4 +1,9 @@
 /**
+ * JavaScript 中的相等性判断
+ * https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Equality_comparisons_and_sameness
+ */
+
+/**
  * ES2015中有四种相等算法：
  */
 // 非严格相等比较(==)

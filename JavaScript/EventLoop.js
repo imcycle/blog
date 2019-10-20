@@ -1,3 +1,8 @@
+/**
+ * 并发模型与事件循环
+ * https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/EventLoop
+ */
+
 
 /**
  * 并发模型

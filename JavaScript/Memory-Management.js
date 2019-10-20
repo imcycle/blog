@@ -1,5 +1,6 @@
 /**
  * 内存管理
+ * https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Memory_Management
  */
 
 /**
