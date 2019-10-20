@@ -47,13 +47,13 @@
 
 /**
                                                 B
-                Undefined 	Null  	Number	              String	                      Boolean                        	Object
-    Undefined   true  	    true	  false	                false	                        false	                          IsFalsy(B)
-A   Null        true      	true	  false	                false	                        false	                          IsFalsy(B)
-    Number      false	      false	  A === B	              A === ToNumber(B)	            A === ToNumber(B)              	A == ToPrimitive(B)
-    String      false	      false	  ToNumber(A) === B	    A === B                     	ToNumber(A) === ToNumber(B)    	ToPrimitive(B) == A
-    Boolean     false	      false	  ToNumber(A) === B	    ToNumber(A) === ToNumber(B) 	A === B	                        ToNumber(A) == ToPrimitive(B)
-    Object      false	      false	  ToPrimitive(A) == B	  ToPrimitive(A) == B	          ToPrimitive(A) == ToNumber(B)   A === B
+                Undefined   Null    Number                 String                         Boolean                          Object
+    Undefined   true        true    false                  false                          false                            IsFalsy(B)
+A   Null        true        true    false                  false                          false                            IsFalsy(B)
+    Number      false       false   A === B                A === ToNumber(B)              A === ToNumber(B)                A == ToPrimitive(B)
+    String      false       false   ToNumber(A) === B      A === B                        ToNumber(A) === ToNumber(B)      ToPrimitive(B) == A
+    Boolean     false       false   ToNumber(A) === B      ToNumber(A) === ToNumber(B)    A === B                          ToNumber(A) == ToPrimitive(B)
+    Object      false       false   ToPrimitive(A) == B    ToPrimitive(A) == B            ToPrimitive(A) == ToNumber(B)   A === B
  */
 // ToNumber(A) 尝试在比较前将参数 A 转换为数字，这与 +A（单目运算符+）的效果相同。
 // ToPrimitive(A)通过尝试调用 A 的A.toString() 和 A.valueOf() 方法，将参数 A 转换为原始值（Primitive）。
@@ -128,29 +128,29 @@ function attemptMutation(v) {
 
 
 /**
-x	                  y	                  ==	  ===	  Object.is
-undefined	          undefined	          true	true	true
-null              	null	              true	true	true
-true              	true          	    true	true	true
-false              	false	              true	true	true
-"foo"             	"foo"	              true	true	true
-0                  	0	                  true	true	true
-+0	                -0	                true	true	false
-0	                  false	              true	false	false
-""                	false	              true	false	false
-""                 	0	                  true	false	false
-"0"	                0	                  true	false	false
-"17"	              17	                true	false	false
-[1,2]	              "1,2"	              true	false	false
-new String("foo")	  "foo"	              true	false	false
-null               	undefined	          true	false	false
-null	              false	              false	false	false
-undefined	          false	              false	false	false
-{ foo: "bar" }     	{ foo: "bar" }	    false	false	false
-new String("foo") 	new String("foo")	  false	false	false
-0                  	null	              false	false	false
-0	                  NaN	                false	false	false
-"foo"	              NaN	                false	false	false
-NaN	                NaN	                false	false	true
+x                    y                    ==    ===    Object.is
+undefined            undefined            true  true  true
+null                null                true  true  true
+true                true                true  true  true
+false                false                true  true  true
+"foo"               "foo"                true  true  true
+0                    0                    true  true  true
++0                  -0                  true  true  false
+0                    false                true  false  false
+""                  false                true  false  false
+""                   0                    true  false  false
+"0"                  0                    true  false  false
+"17"                17                  true  false  false
+[1,2]                "1,2"                true  false  false
+new String("foo")    "foo"                true  false  false
+null                 undefined            true  false  false
+null                false                false  false  false
+undefined            false                false  false  false
+{ foo: "bar" }       { foo: "bar" }      false  false  false
+new String("foo")   new String("foo")    false  false  false
+0                    null                false  false  false
+0                    NaN                  false  false  false
+"foo"                NaN                  false  false  false
+NaN                  NaN                  false  false  true
  */
 
