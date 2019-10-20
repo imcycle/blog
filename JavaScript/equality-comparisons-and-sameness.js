@@ -48,12 +48,12 @@
 /**
                                                 B
                 Undefined 	Null  	Number	              String	                      Boolean                        	Object
-    Undefined	  true  	    true	  false	                false	                        false	                          IsFalsy(B)
-A   Null    	  true      	true	  false	                false	                        false	                          IsFalsy(B)
-    Number  	  false	      false	  A === B	              A === ToNumber(B)	            A === ToNumber(B)              	A == ToPrimitive(B)
-    String	    false	      false	  ToNumber(A) === B	    A === B                     	ToNumber(A) === ToNumber(B)    	ToPrimitive(B) == A
-    Boolean 	  false	      false	  ToNumber(A) === B	    ToNumber(A) === ToNumber(B) 	A === B	                        ToNumber(A) == ToPrimitive(B)
-    Object	    false	      false	  ToPrimitive(A) == B	  ToPrimitive(A) == B	          ToPrimitive(A) == ToNumber(B)   A === B
+    Undefined   true  	    true	  false	                false	                        false	                          IsFalsy(B)
+A   Null        true      	true	  false	                false	                        false	                          IsFalsy(B)
+    Number      false	      false	  A === B	              A === ToNumber(B)	            A === ToNumber(B)              	A == ToPrimitive(B)
+    String      false	      false	  ToNumber(A) === B	    A === B                     	ToNumber(A) === ToNumber(B)    	ToPrimitive(B) == A
+    Boolean     false	      false	  ToNumber(A) === B	    ToNumber(A) === ToNumber(B) 	A === B	                        ToNumber(A) == ToPrimitive(B)
+    Object      false	      false	  ToPrimitive(A) == B	  ToPrimitive(A) == B	          ToPrimitive(A) == ToNumber(B)   A === B
  */
 // ToNumber(A) 尝试在比较前将参数 A 转换为数字，这与 +A（单目运算符+）的效果相同。
 // ToPrimitive(A)通过尝试调用 A 的A.toString() 和 A.valueOf() 方法，将参数 A 转换为原始值（Primitive）。
