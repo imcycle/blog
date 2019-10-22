@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>前端路由实现</title>
+</head>
+
+<body>
+  <ul>
+    <li><a href="javascript:void(0)" data-path="index">首页</a></li>
+    <li><a href="javascript:void(0)" data-path="news">新闻</a></li>
+    <li><a href="javascript:void(0)" data-path="about">关于</a></li>
+  </ul>
+  <div id="box">
+    <!-- 内容加载区域 -->
+  </div>
+</body>
+
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script>
+  window.onload = function () {
+    var path = 'index';
+    var text = '首页';
+    history.replaceState(text, path, path);
+    $('#box').html('<p>' + text + '</p>')
+
+    $('a').on('click', function () {
+      path = this.dataset.path;
+      text = this.text;
+      $('#box').html('<p>' + text + '</p>')
+      history.pushState(text, path, `${path}`);
+    })
+
+    window.addEventListener('popstate', function (e) {
+      text = e.state;
+      $('#box').html('<p>' + text + '</p>')
+    });
+
+  }
+</script>
+
+</html>
