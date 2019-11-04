@@ -18,5 +18,10 @@ module.exports = {
       }
     ],
   },
-  plugins: []
+  plugins: [],
+  devServer: {
+    contentBase: path.join(__dirname, 'dist'),
+    compress: true,
+    port: 7777,
+  }
 };

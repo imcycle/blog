@@ -1,4 +1,4 @@
-function importFromBelow() {
+function react() {
   const TEXT_ELEMENT = 'TEXT_ELEMENT';
 
   function updateDomProperties(dom, prevProps, nextProps) {
@@ -192,4 +192,4 @@ function importFromBelow() {
   };
 }
 
-export default importFromBelow();
+export default react();
