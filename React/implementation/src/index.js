@@ -1,10 +1,9 @@
 import React from './react';
-import { createHash } from 'crypto';
 
 class A extends React.Component {
   render() {
     return (
-      <div>
+      <div >
         <div>A: {this.props.num}</div>
         <button onClick={this.props.onAdd}>A: +</button>
       </div>
