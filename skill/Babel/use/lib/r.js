@@ -11,28 +11,51 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 var A =
-/*#__PURE__*/
-function () {
-  function A() {
-    _classCallCheck(this, A);
-  }
+  /*#__PURE__*/
+  function () {
+    function A() {
+      _classCallCheck(this, A);
 
-  _createClass(A, [{
-    key: "render",
-    // a = 1;
-    value: function render() {
-      return React.createElement("div", {
-        style: {
-          width: '100px'
-        }
-      }, React.createElement("h1", null, a), React.createElement("p", null, "123"));
+      _defineProperty(this, "handleClick", function () {
+        console.log('handleClick');
+      });
+
+      this.state = {
+        a: 1,
+        b: 2
+      };
     }
-  }]);
 
-  return A;
-}();
+    _createClass(A, [{
+      key: "componentWillMount",
+      value: function componentWillMount() {
+        console.log('componentWillMount');
+      }
+    }, {
+      key: "componentDidMount",
+      value: function componentDidMount() {
+        this.setState({
+          a: 2
+        });
+      }
+    }, {
+      key: "render",
+      value: function render() {
+        return React.createElement("div", {
+          style: {
+            width: '100px'
+          }
+        }, React.createElement("h1", null, this.state.a), React.createElement("p", {
+          onClick: this.handleClick
+        }, "123"), React.createElement("p", null, "234"));
+      }
+    }]);
 
-var a = 1;
+    return A;
+  }();
+
 var _default = A;
 exports["default"] = _default;
