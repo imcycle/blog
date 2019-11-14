@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>清除浮动四种方式</title>
+  <style>
+    .topDiv {
+      width: 500px;
+      border: 2px solid black;
+
+      /* 方法四 overfolw */
+      overflow: auto;
+    }
+
+    .floatDiv {
+      width: 100px;
+      height: 100px;
+      border: 2px dotted red;
+      color: red;
+      margin: 4px;
+      float: left;
+    }
+
+    .bottomDiv {
+      width: 500px;
+      height: 100px;
+      margin: 5px 0;
+      border: 2px dotted black;
+    }
+
+    .textDiv {
+      color: blue;
+      border: 2px solid blue;
+
+      /* 方法一 */
+      /* clear: both; */
+    }
+
+    /* 方法二 父级元素的末尾插入块级元素*/
+    /* .blankDiv {
+      clear: both;
+    } */
+
+    /* 方法三 伪元素 */
+    /* .clearfix:after {
+      content: '.';
+      height: 0;
+      display: block;
+      clear: both;
+    } */
+  </style>
+</head>
+
+<body>
+  <div class="topDiv clearfix">
+    <div class="floatDiv">float left</div>
+    <div class="textDiv">...</div>
+    <!-- 方法二 父级元素的末尾插入块级元素-->
+    <!-- <div class="blankDiv"></div> -->
+  </div>
+  <div class="bottomDiv">...</div>
+</body>
+
+</html>
+
+<!-- 
+方法1: 浮动元素的兄弟元素 加 clear: both/left/right
+
+方法2: 浮动元素父盒子 后添加块元素 clear: both/left
+
+方法3: 浮动元素父盒子 添加伪元素
+.clearfix:after {
+  content: '.';
+  height: 0;
+  display: block;
+  clear: both;
+}
+
+方法4: 浮动元素父盒子 overflow: auto/hidden
+-->
+
+<!-- 
+clear：图像的左侧和右侧均不允许出现浮动元素：
+
+属性值：
+left
+right
+both    
+none    允许 默认值
+inherit 继承
+-->
+
+
+<!-- 
+overflow: 
+
+visible	默认值。内容不会被修剪，会呈现在元素框之外。
+hidden	内容会被修剪，并且其余内容是不可见的。
+scroll	内容会被修剪，但是浏览器会显示滚动条以便查看其余的内容。
+auto	  如果内容被修剪，则浏览器会显示滚动条以便查看其余的内容。
+inherit   继承
+-->
