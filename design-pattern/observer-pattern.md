@@ -52,13 +52,13 @@ var installEvent = function (obj) {
 var o = {};
 installEvent(o);
 
-o.listen('pd1', function (msg) {
-  console.log('pd1' + msg);
+o.listen('pd1', function () {
+  console.log('pd1: ' + Array.prototype.slice.apply(arguments).toString());
 })
-o.listen('pd2', function (msg) {
-  console.log('pd2', msg);
+o.listen('pd2', function () {
+  console.log('pd2: ', Array.prototype.slice.apply(arguments).toString());
 })
 
-o.trigger('pd1:', 'pd1msgmsgmsg');
-o.trigger('pd2:', 'pd2msgmsgmsg');
+o.trigger('pd1', 'pd1msgmsgmsg');
+o.trigger('pd2', 'pd2msgmsgmsg');
 ```
