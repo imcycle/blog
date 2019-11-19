@@ -26,6 +26,22 @@ var event = {
     }
     this.clientList[key].push(fn);  // 订阅的消息添加进缓存列表
   },
+  remove: function (key, fn) {
+    var fns = this.clientList[key];
+    if (!fns) {
+      return false;
+    }
+    if (!fn) {  // 如果没有传入具体的函数， 表示需要取消key对应消息的所有订阅
+      fns && fns.length = 0;
+    } else {
+      for(var l = fns.length -1; l >= 0; l--) {
+        var _fn = fns[l];
+        if (_fn === fn) {
+          fns.splice(l, 1);  // 删除
+        }
+      }
+    }
+  },
   trigger: function () {
     var key = Array.prototype.shift.call(arguments),  // (1);
         fns = this.clientList[key];
@@ -37,7 +53,8 @@ var event = {
     for (var i = 0, fn; fn = fns[i++];) {
       fn.apply(this, arguments);  // (2)  // arguments 是 tarigger 时带上的参数
     }
-  }
+  },
+  
 }
 
 // 再定义一个 installEvent 函数，这个函数可以给所有的对象都动态安装发布—订阅功能:
