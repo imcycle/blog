@@ -84,16 +84,34 @@ while (queue.waitForMessage()) {
 // 因此第二个参数仅仅表示最少延迟时间，而非确切的等待时间。
 
 // 下面的例子演示了这个概念（setTimeout 并不会在计时器到期之后直接执行）：
+
+async function a() {
+  console.log('fetch')
+  await fetch('https://test.duliday.com/api/common/meta');
+  console.log('两秒后打印 fetch')
+}
+a();
+setTimeout(function () {
+  // 两秒后执行 执行两秒
+  const s1 = new Date().getSeconds();
+  while (true) {
+    if (new Date().getSeconds() - s1 >= 2) {
+      console.log("又阻塞2秒");
+      break;
+    }
+  }
+}, 500);
+
 const s = new Date().getSeconds();
 
 setTimeout(function () {
-  // 输出 "2"，表示回调函数并没有在 500 毫秒之后立即执行
+  // 输出 "4"，表示回调函数并没有在 500 毫秒之后立即执行
   console.log("Ran after " + (new Date().getSeconds() - s) + " seconds");
 }, 500);
 
 while (true) {
   if (new Date().getSeconds() - s >= 2) {
-    console.log("Good, looped for 2 seconds");
+    console.log("阻塞" + (new Date().getSeconds() - s) + "秒");
     break;
   }
 }
@@ -124,3 +142,32 @@ while (true) {
 // 处理 I / O 通常通过事件和回调来执行，所以当一个应用正等待一个 IndexedDB 查询返回或者一个 XHR 请求返回时，它仍然可以处理其它事情，比如用户输入。
 
 
+
+
+async function c() {
+  console.log(1)
+}
+
+async function d() {
+  await Promise.resolve('');
+  console.log(2)
+}
+
+async function e() {
+  console.log(3)
+}
+
+setTimeout(function () {
+  console.log(4)
+}, 0)
+
+c();
+d();
+e();
+console.log(5)
+
+// 1
+// 3
+// 5
+// 2
+// 4

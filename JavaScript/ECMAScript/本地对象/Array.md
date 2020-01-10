@@ -2,6 +2,7 @@
   https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array
 
 ## Array
+Array 对象是用于构造数组的全局对象
 
 <br /> 
 
@@ -12,20 +13,29 @@
 __Array.length__<br/>
 Array 构造函数的 length 属性，其值为1（注意该属性为静态属性，不是数组实例的 length 属性）。
 
-
-
-get Array[@@species]
-
+__get Array[@@species]__<br/>
 返回 Array 构造函数。
-
 
 __Array.prototype__<br/>
 通过数组的原型对象可以为所有数组对象添加属性。
 
+### 方法
+Array.from()
+从类数组对象或者可迭代对象中创建一个新的数组实例。
+Array.isArray()
+用来判断某个变量是否是一个数组对象。
+Array.of()
+根据一组参数来创建新的数组实例，支持任意的参数数量和类型。
 
 <br />
 
 ---
+
+### 数组实例 Array.prototype
+所有数组实例都会从 Array.prototype 继承属性和方法。修改 Array 的原型会影响到所有的数组实例。
+
+__Array.prototype.constructor__<br />
+__Array.prototype.length__<br />
 
 
 #### 修改器方法
@@ -36,26 +46,23 @@ __Array.prototype.copyWithin()__<br/>
 __Array.prototype.fill()__<br/>
 用一个固定值填充一个数组中从起始索引到终止索引内的全部元素。不包括终止索引。  arr.fill(value[, start[, end]])
 
-__Array.prototype.pop()__<br/>
-删除数组的最后一个元素，并返回这个元素。
-
-__Array.prototype.push()__<br/>
-在数组的末尾增加一个或多个元素，并返回数组的新长度。
-
+__pop(): T | undefined__<br/>
+后删，返回被删元素。<br/>
+__Array.prototype.push() push(...items: T[]): number;__<br/>
+后加，返回length。<br/>
 __Array.prototype.shift()__<br/>
-删除数组的第一个元素，并返回这个元素。
-
+前删，返回被删元素。<br/>
 __Array.prototype.unshift()__<br/>
-在数组的开头增加一个或多个元素，并返回数组的新长度。
+前加，返回length。<br/>
 
 __Array.prototype.splice()__<br/>
 在任意的位置给数组添加或删除任意个元素。
 
 __Array.prototype.reverse()__<br/>
-颠倒数组中元素的排列顺序，即原先的第一个变为最后一个，原先的最后一个变为第一个。
+反转。
 
 __Array.prototype.sort()__<br/>
-对数组元素进行排序，并返回当前数组。
+排序。
 
 <br />
 
