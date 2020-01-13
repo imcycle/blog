@@ -247,3 +247,22 @@ keys(): IterableIterator<number>;
 values(): IterableIterator<T>;
 ```
 返回一个数组迭代器对象，该迭代器会包含所有数组元素的值。
+
+
+<br />
+
+#### 检测数组
+1. ECMAScript 3 instanceof
+    ```
+    if (value instanceof Array) {
+      //对数组执行某些操作
+    }
+    ```
+    instanceof 操作符的问题在于，它假定只有一个全局执行环境。如果网页中包含多个框架，那实际上就存在两个以上不同的全局执行环境，从而存在两个以上不同版本的 Array 构造函数。如果你从一个框架向另一个框架传入一个数组，那么传入的数组与在第二个框架中原生创建的数组分别具有各自不同的构造函数。
+
+2. ECMAScript 5 isArray
+    ```
+    if (Array.isArray(value)) {
+      //对数组执行某些操作
+    }
+    ```
