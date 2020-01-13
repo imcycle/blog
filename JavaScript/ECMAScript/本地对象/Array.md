@@ -251,7 +251,9 @@ values(): IterableIterator<T>;
 
 <br />
 
-#### 检测数组
+---
+
+### 检测数组
 1. ECMAScript 3 instanceof
     ```
     if (value instanceof Array) {
