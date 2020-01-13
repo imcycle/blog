@@ -6,26 +6,50 @@ Array 对象是用于构造数组的全局对象
 
 <br /> 
 
----
-
 ### 属性
-
-__Array.length__<br/>
+```
+readonly length: number;
+```
 Array 构造函数的 length 属性，其值为1（注意该属性为静态属性，不是数组实例的 length 属性）。
 
-__get Array[@@species]__<br/>
+```
+Array[@@species]
+```
 返回 Array 构造函数。
 
-__Array.prototype__<br/>
+```
+readonly prototype: any[];
+```
 通过数组的原型对象可以为所有数组对象添加属性。
 
 ### 方法
-Array.from()
-从类数组对象或者可迭代对象中创建一个新的数组实例。
-Array.isArray()
-用来判断某个变量是否是一个数组对象。
-Array.of()
-根据一组参数来创建新的数组实例，支持任意的参数数量和类型。
+```
+/**
+ * Creates an array from an iterable object.
+ * @param iterable An iterable object to convert to an array.
+ */
+from<T>(iterable: Iterable<T> | ArrayLike<T>): T[];
+
+/**
+ * Creates an array from an iterable object.
+ * @param iterable An iterable object to convert to an array.
+ * @param mapfn A mapping function to call on every element of the array.
+ * @param thisArg Value of 'this' used to invoke the mapfn.
+ */
+from<T, U>(iterable: Iterable<T> | ArrayLike<T>, mapfn: (v: T, k: number) => U, thisArg?: any): U[];
+```
+
+```
+isArray(arg: any): arg is any[];
+```
+
+```
+/**
+ * Returns a new array from a set of elements.
+ * @param items A set of elements to include in the new array object.
+ */
+of<T>(...items: T[]): T[];
+```
 
 <br />
 
