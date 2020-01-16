@@ -1,8 +1,0 @@
-AMD CMD
-CMD  是 SeaJS 产出          就近依赖
-AMD  是 RequireJS 产出      提前依赖
-
-
-
-
-
