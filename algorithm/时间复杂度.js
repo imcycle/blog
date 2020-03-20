@@ -74,7 +74,6 @@ var bubbleSort = function (originalArray) {
 
 
 
-
 var res = 0;
 var n = 100000;
 for (var i = 0; i < n; i++) {
@@ -84,3 +83,36 @@ console.log(res)
 
 
 
+
+
+
+
+
+
+/**
+ * 空间复杂度
+ */
+
+function fun(n) {
+  var num = n + 1;
+  return num;
+}
+// O(1)
+
+function fun(n) {
+  var arr = new Array(n).fill('0');
+  return arr;
+}
+// O(n)  数组的长度根据 n 变化
+
+function fun(n) {
+  var arr = [];
+  for (var i = 0; i < n; i++) {
+    arr[i] = [];
+    for (var j = 0; j < n; j++) {
+      arr[i][j] = j;
+    }
+  }
+  return arr;
+}
+// O(n^2)
