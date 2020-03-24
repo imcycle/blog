@@ -101,4 +101,69 @@ webpack中配置使用
 
 生效，绿色 被反转为 紫色。
 
+## 更新npm包
+
+添加loader简介
+
+根目录新建文件 <code>README.md</code>
+
+```markdown
+# reverse-color-loader
+
+是一个 webpack loader，可以使项目中的设置的颜色（如color, background等）反转。
+
+## Getting Started
+
+To begin, you'll need to install <code>reverse-color-loader</code>:
+
+npm install --save-dev reverse-color-loader
+
+Then add the plugin to your webpack config. For example:
+
+### webpack.config.js
+
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.(jsx?|tsx?|css|less|sass)/,
+        use: 'reverse-color-loader',
+      },
+    ],
+  },
+};
+```
+
+关联GitHub， 在 <code>package.json</code> 中 加入
+
+```json
+"repository": "whosmeya/reverse-color-loader",
+```
+
+代码提交到 GitHub
+
+然后发布，发布有三种
+
+```shell
+npm version patch && git push --follow-tags && npm publish
+npm version minor && git push --follow-tags && npm publish
+npm version major && git push --follow-tags && npm publish
+```
+
+这样将递增包版本号，提交变更，然后创建一个本地 tag 标签，并推送到 github 和发布到 npm package。
+
+我们改动很小，所以使用第一种
+
+```shell
+npm version patch && git push --follow-tags && npm publish
+```
+
+发版成功
+
+<img style="width: 700px;" src="https://img2020.cnblogs.com/blog/1141466/202003/1141466-20200324151221629-1635377529.png" />
+
+<img style="width: 800px;" src="https://img2020.cnblogs.com/blog/1141466/202003/1141466-20200324151818147-1450139472.png" />
+
+查看npm网站，更新内容成功。
+
 <br />
