@@ -287,15 +287,42 @@ npm install eslint --save-dev
 * parserOptions.sourceType = "module" 使用模块
 * rules 看不惯哪些规则可以关了
 
-## README
+## 添加 README.md
 
 ### 徽标
 
 GitHub徽标官网是 [shields.io](https://shields.io/)
 
-可以使用 <>
-
 https://zhuanlan.zhihu.com/p/85370228
+
+__徽标图标格式__
+
+```txt
+https://img.shields.io/badge/{徽标标题}-{徽标内容}-{徽标颜色}.svg
+```
+
+例如
+
+```markdown
+![build](https://img.shields.io/badge/build-passing-success.svg)
+![npm package](https://img.shields.io/badge/npm%20package-1.1.3-success.svg)
+```
+
+会显示
+
+<img style="width: 400px;" src="https://img2020.cnblogs.com/blog/1141466/202004/1141466-20200402204610924-174310809.png" />
+
+
+
+__带链接的徽标__
+
+```txt
+[![](https://img.shields.io/badge/{徽标标题}-{徽标内容}-{徽标颜色}.svg)]({linkUrl})
+```
+
+__GitHub动态徽标__
+
+<img style="width: 800px;" src="https://img2020.cnblogs.com/blog/1141466/202004/1141466-20200402203205427-422523169.png" />
 
 ## 完善 package.json 基本信息
 
