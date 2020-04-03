@@ -14,7 +14,7 @@ npm包的发布、更新查看上一篇文章 [开发一个基础的npm包](http
 └── README.md
 ```
 
-接下来给项目配置 打包，忽视文件，ts声明文件，单元测试，eslint，README。
+接下来给项目添加 打包，忽视文件，ts声明文件，单元测试，eslint，README.md添加徽标。
 
 ## 打包
 
@@ -45,7 +45,7 @@ npm install --save-dev @babel/cli @babel/core @babel/preset-env
 }
 ```
 
-修改 <code>package.json</code>
+添加编译命命令，修改 <code>package.json</code>
 
 ```diff
 "scripts": {
@@ -283,17 +283,13 @@ npm install eslint --save-dev
 
 <img style="width: 600px;" src="https://img2020.cnblogs.com/blog/1141466/202003/1141466-20200331160346244-1311642854.png" />
 
-* extends 使用的规则
-* parserOptions.sourceType = "module" 使用模块
-* rules 看不惯哪些规则可以关了
+* extends： 使用的规则
+* parserOptions.sourceType = "module"： 使用模块
+* rules： 看不惯哪些规则可以关了
 
-## 添加 README.md
-
-### 徽标
+## README.md 添加 徽标
 
 GitHub徽标官网是 [shields.io](https://shields.io/)
-
-https://zhuanlan.zhihu.com/p/85370228
 
 __徽标图标格式__
 
