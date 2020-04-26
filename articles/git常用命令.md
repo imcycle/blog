@@ -1,4 +1,4 @@
-# git常用命令
+# Git常用命令
 
 导航
 
@@ -74,6 +74,9 @@ git remote -v
 
 # 删除
 git remote remove origin
+
+# 查看本地分支关联的remote
+git branch -vv
 
 # 关联本地分支
 git branch --set-upstream-to=<name>/<branch>
