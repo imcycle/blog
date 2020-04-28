@@ -6,6 +6,7 @@
 * <a href="#reset">reset</a>
 * <a href="#push">push</a>
 * <a href="#tag">tag</a>
+* <a href="#log">log</a>
 * <a href="#merge">merge</a>
 * <a href="#cherry-pick">cherry-pick</a>
 * <a href="#rebase">rebase</a>
@@ -199,6 +200,20 @@ git push origin <tagname>
 git tag -d <tagname>
 # 删除一个远程标签
 git push origin :refs/tags/<tagname>
+```
+
+<br />
+
+## <span id="log">log</span>
+
+查看 commit 日志
+
+```shell
+# 查看
+git log
+
+# 查看 图形，一行，commit缩写
+git log --graph --pretty=oneline --abbrev-commit
 ```
 
 <br />
