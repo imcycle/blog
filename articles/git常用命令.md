@@ -6,6 +6,10 @@
 * <a href="#reset">reset</a>
 * <a href="#push">push</a>
 * <a href="#tag">tag</a>
+* <a href="#merge">merge</a>
+* <a href="#cherry-pick">cherry-pick</a>
+* <a href="#rebase">rebase</a>
+* <a href="#stash">stash</a>
 
 ## <span id="remote">remote</span>
 
@@ -59,7 +63,7 @@ origin3 git@github.com:whosMeya/git-test.git (push)
 
 可以使用 <code>git branch --set-upstream-to=remote变量名/分支名</code> 指定当前分支对应的远程分支，如 <code>git branch --set-upstream-to=origin3/test</code>
 
-新建本地分之后，也可以使用 <code>git push -u remote变量名</code> 推送本地分支到远程新建名字相同的分支。常见 <code>git push -u origin</code>
+新建本地分之后，也可以使用 <code>git push --set-upstream remote变量名 远程新建分支名</code> 推送本地分支到远程新建名字相同的分支。常见 <code>git push --set-upstream origin develop</code>
 
 __本地设置的remote对远程没有影响，git clone 新项目时，会新建一个remote，名字叫origin，值为拉取的远程地址__
 
@@ -156,8 +160,6 @@ git push --set-upstream origin develop
 
 ## <span id="tag">tag</span>
 
-标签打在commit上，与commit同在。
-
 ```txt
 git tag [-a | -s | -u <keyid>] [-f] [-m <msg> | -F <file>] [-e]
     <tagname> [<commit> | <object>]
@@ -168,6 +170,10 @@ git tag [-a | -s | -u <keyid>] [-f] [-m <msg> | -F <file>] [-e]
     [--[no-]merged [<commit>]] [<pattern>…​]
     git tag -v [--format=<format>] <tagname>…​
 ```
+
+tag不是打在某个commit上，而是相当于新建的分支，<code>git checkout tagname</code> 可以将本地仓库切换到tag对应的代码。
+
+git多人合作后历史记录是有分叉的，<code>git log --graph --pretty=oneline --abbrev-commit</code>可查看，tag是记录某个分支的当时状态。rebase命令会破坏提交历史，在log可能会看不到tag记录，需要使用<code>git tag</code>查看。
 
 ### tag 常用指令
 
@@ -193,6 +199,62 @@ git push origin <tagname>
 git tag -d <tagname>
 # 删除一个远程标签
 git push origin :refs/tags/<tagname>
+```
+
+<br />
+
+## <span id="merge">merge</span>
+
+git-merge 将两个或多个开发历史连接在一起
+
+```shell
+# 合并目标分支到当前分支
+git merge <branchname>
+```
+
+<br />
+
+## <span id="cherry-pick">cherry-pick</span>
+
+git-cherry-pick 通过commit尝试申请改变
+
+```shell
+# 合并目标commit到当前分支
+git cherry-pick <commitid>
+```
+
+<br />
+
+## <span id="rebase">rebase</span>
+
+将当前分支未提交的commit整理为不分叉的历史记录
+
+merge之后，log会分叉，rebase会把commit整理成一条直线；继续merge，commit会重复出现，再revase，重复commit会消失。所以，重复merge，rebase，merge，rebase，merge，rebase，不会增加历史记录总数。
+
+```shell
+# 整理当前未提交的commit
+git rebase
+```
+
+## <span id="stash">stash</span>
+
+将 __工作区__ 内容"储存"。 注意，不是储存在暂存区。
+
+```shell
+# 将当前 工作区 储存到stashList
+git stash
+
+# 将stashList中的第一条记录还原到工作区，并删除。(类似数组pop)
+git stash pop
+
+# 查看
+git stash list
+
+# 移除单个
+drop [-q|--quiet] [<stash>]
+
+# 清空
+git stash clear
 ```
 
 <br />
