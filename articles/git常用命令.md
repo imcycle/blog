@@ -157,6 +157,17 @@ git push
 git push --set-upstream origin develop
 ```
 
+```shell
+# 推送所有tag
+git push --tags
+
+# 强推
+git push [-f | --force]
+
+```
+
+强推之后，历史记录将会丢失。reset销毁多个commit后强推，其他人员pull，会出现被销毁commit在最新记录之前，log将会错乱。多人协作强推请慎重。
+
 <br />
 
 ## <span id="tag">tag</span>
@@ -192,14 +203,14 @@ git tag
 git show <tagname>
 
 # 推送所有标签到远程
-git push origin --tags
+git push --tags
 # 推送指定标签到远程
-git push origin <tagname>
+git push <tagname>
 
 # 删除一个本地标签
 git tag -d <tagname>
 # 删除一个远程标签
-git push origin :refs/tags/<tagname>
+git push :refs/tags/<tagname>
 ```
 
 <br />
@@ -242,13 +253,15 @@ git cherry-pick <commitid>
 
 ## <span id="rebase">rebase</span>
 
-将当前分支未提交的commit整理为不分叉的历史记录
+整理commit
 
-merge之后，log会分叉，rebase会把commit整理成一条直线；继续merge，commit会重复出现，再revase，重复commit会消失。所以，重复merge，rebase，merge，rebase，merge，rebase，不会增加历史记录总数。
+merge之后，log会分叉，rebase会把commit整理成一条直线；继续merge，commit会重复出现；再rebase，重复commit会消失。所以，重复merge，rebase，merge，rebase，merge，rebase，不会增加历史记录总数。
 
 ```shell
-# 整理当前未提交的commit
+# 把未提交的commit整理成一条直线
 git rebase
+
+
 ```
 
 ## <span id="stash">stash</span>
