@@ -135,19 +135,19 @@ var o = {
 /**
  * 属性的特征
  */
-  // 数据属性特征
-  // value
-  // writable
-  // enumerable
-  // configurable
+// 数据属性特征
+// value
+// writable
+// enumerable
+// configurable
 
-  // 存取器属性特征
-  // get
-  // set
-  // enumerable
-  // configurable
+// 存取器属性特征
+// get
+// set
+// enumerable
+// configurable
 
-  // 属性描述符（property descriptor）
+// 属性描述符（property descriptor）
 
 
 
@@ -171,3 +171,116 @@ var o = {
  *  返回值
  *    被传递给函数的对象。
  */
+
+
+function createStore() {
+  function getState() { }  // 取
+  function dispatch() { }  // 存
+  function subscribe() { }  // 发布订阅
+
+  return { getState, dispatch, subscribe }
+}
+
+
+function createStore() {
+  let currentState = { count: 0 };
+  let currentListeners = [];
+  function getState() {
+    return currentState;
+  }
+  function dispatch(action) {
+    switch (action.type) {
+      case 'PLUS':
+        currentState = {
+          count: currentState.count + 1,
+          ...currentState,
+        };
+    }
+    currentListeners.forEach(fn => fn());
+    return action;
+  }
+  function subscribe(listener) {
+    currentListeners.push(listener)
+  }
+
+  return { getState, dispatch, subscribe }
+}
+
+
+function createStore(reducer, preloadedState) {
+  let currentReducer = reducer
+  let currentState = preloadedState;
+  let currentListeners = [];
+  function getState() {  // 取
+    return currentState;
+  }
+  function dispatch(action) {  // 存
+    currentState = currentReducer(currentState, action);
+    return action;
+  }
+  function subscribe(listener) {  // 发布订阅
+    currentListeners.push(listener);
+  }
+  function replaceReducer(nextReducer) {  // 重置reducer
+    currentReducer = nextReducer;
+    dispatch({ type: '@@redux/INIT' });  // 初始化
+  }
+  dispatch({ type: '@@redux/INIT' });  // 初始化
+  return { getState, dispatch, subscribe, replaceReducer }
+}
+
+function createStore() {
+  function getState() { }              // 取
+  function dispatch() { }              // 存
+  function subscribe() { }             // 订阅
+  function replaceReducer() { }        // 重置reducer
+  dispatch({ type: '@@redux/INIT' });  // 初始化
+  return { getState, dispatch, subscribe, replaceReducer }
+}
+
+function createStore() {
+  let currentState = {};               // 数据
+  function getState() {                // 取
+    return currentState;
+  }
+  function dispatch() { }              // 存
+  function subscribe() { }             // 订阅
+  function replaceReducer() { }        // 重置reducer
+  dispatch({ type: '@@redux/INIT' });  // 初始化
+  return { getState, dispatch, subscribe, replaceReducer }
+}
+
+function combineReducers(reducers) {
+  const reducerKeys = Object.keys(reducers);
+  return function combination(state = {}, action) {
+    let hasChanged = false;
+    const nextState = {};
+    reducerKeys.forEach(key => {
+      const reducer = reducers[key];
+      const previousStateForKey = state[key];
+      const nextStateForKey = reducer(previousStateForKey, action);
+      nextState[key] = nextStateForKey;
+      hasChanged = hasChanged || nextStateForKey !== previousStateForKey;
+    })
+    return hasChanged ? nextState : state;
+  }
+}
+
+function bindActionCreator(actionCreator, dispatch) {
+  return (...args) => dispatch(actionCreator(...args));
+}
+
+function bindActionCreators(actionCreators, dispatch) {
+  if (typeof actionCreators === 'function') {
+    return bindActionCreator(actionCreators, dispatch)
+  }
+
+  const boundActionCreators = {};
+  Object.keys(actionCreators).forEach(key => {
+    const actionCreator = actionCreators[key];
+    if (typeof actionCreator === 'function') {
+      boundActionCreators[key] = bindActionCreator(actionCreator, dispatch);
+    }
+  })
+  return boundActionCreators;
+}
