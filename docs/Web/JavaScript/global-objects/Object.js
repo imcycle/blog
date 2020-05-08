@@ -284,3 +284,44 @@ function bindActionCreators(actionCreators, dispatch) {
   })
   return boundActionCreators;
 }
+
+funcs.reduce((a, b) => (...args) => a(b(...args)))
+
+funcs.reduce(function (a, b) {
+  return function (...args) {
+    return a(b(...args))
+  }
+})
+
+// 原始长这个样子
+function logger(middlewareAPI) {
+  return (dispatch) => dispatch;
+}
+
+// 然后 给 dispatch 包装以下，并且换个名字叫 next
+function logger(middlewareAPI) {
+  return (next) => (action) => {
+    let state = next(action);
+    return state;
+  };
+}
+
+// 然后 加入功能
+function logger(middlewareAPI) {
+  return (next) => (action) => {
+    // 这里的 dispatch 是 createStore 创建的。一般不用。
+    const { getState, dispatch } = middlewareAPI;
+
+    console.log('will dispatch', action);
+
+    let value = next(action);
+
+    console.log('state after dispatch', getState());
+
+    // 原始的 dispatch 返回 action
+    // 一般会是 action 本身，除非
+    // 后面的 middleware 修改了它。
+    return value;
+  };
+}
+([a, b, c, d, e]) => (...args) => a(b(c(d(e(...args)))))

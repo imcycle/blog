@@ -10,7 +10,15 @@
 * dispatch： setter（存）
 * subscribe： 订阅
 
-Redux 提供了五个方法 <a href="#createStore">createStore</a>, <a href="#">combineReducers</a>, <a href="#">bindActionCreators</a>, <a href="#">applyMiddleware</a>, <a href="#">compose</a>。接下来我们来一一解析。
+Redux 提供了五个方法
+
+* <a href="#createStore">createStore</a>
+* <a href="#combineReducers">combineReducers</a>
+* <a href="#bindActionCreators">bindActionCreators</a>
+* <a href="#compose">compose</a>
+* <a href="#applyMiddleware">applyMiddleware</a>
+
+接下来我们来一一解析。
 
 ## <span id="createStore">createStore</span>
 
@@ -137,7 +145,7 @@ function createStore(reducer, preloadedState) {
 
 根据代码可以看出，reducer 和 action 都是开发者自定义的，Redux 只是把 reducer 返回的 state 赋值给了 currentState，那么开发者自定义其他格式的action ，并且在 reducer 中作出对应的解析，然后返回 state，当然也是完全可以的。只是 Redux 统一了这种写法，降低了个性化带来的开发成本。
 
-实际上 createStore 有三个参数，最后一个参数目前用不到，后面再讲。
+实际上 createStore 还有第三个参数 <a href="#enhancer">enhancer</a>，目前用不到，后面再讲。
 
 ### subscribe
 
@@ -211,7 +219,7 @@ function createStore(reducer, preloadedState) {
 
 createStore 的实现思路大概就是这样子，Redux 源码中又做了大量的错误校验。
 
-## combineReducers
+## <span id="combineReducers">combineReducers</span>
 
 随着项目越来越大，把 reducer 放在一个文件里写会越来越臃肿，于是 Redux 提供了 combineReducers 方法。
 
@@ -239,7 +247,7 @@ function combineReducers(reducers) {
 }
 ```
 
-## bindActionCreators
+## <span id="bindActionCreators">bindActionCreators</span>
 
 action 生成器名字叫做叫 action creator, 如下
 
@@ -300,6 +308,202 @@ function bindActionCreators(actionCreators, dispatch) {
 }
 ```
 
-## applyMiddleware
+## <span id="compose">compose</span>
 
-## compose
+从右到左来组合多个函数。
+
+先来看看源码：
+
+```js
+function compose(...funcs) {
+  if (funcs.length === 0) {
+    return arg => arg
+  }
+
+  if (funcs.length === 1) {
+    return funcs[0]
+  }
+
+  return funcs.reduce((a, b) => (...args) => a(b(...args)))
+}
+```
+
+最后一行很难理解，把它换成function写法如下
+
+```js
+funcs.reduce(function (a, b) {
+  return function (...args) {
+    return a(b(...args))
+  }
+})
+```
+
+先看下reduce方法
+
+```js
+reduce(callbackfn: (previousValue: T, currentValue: T, currentIndex: number, array: T[]) => T): T;
+reduce(callbackfn: (previousValue: T, currentValue: T, currentIndex: number, array: T[]) => T, initialValue: T): T;
+// 从左到右为每个数组元素执行一次回调函数，并把上次回调函数的返回值放在一个暂存器中传给下次回调函数，并返回最后一次回调函数的返回值。
+```
+
+previousValue 上次循环的返回值
+
+currentValue 当前循环item
+
+所以第二次循环过程如下
+
+```js
+// 第一次循环返回值为
+function (...args) {
+  return a(b(...args))
+}
+
+// 第二次循环时，第一个参数为：第一次循环的返回值，第二个参数为：funcs 内第三个元素，用c来表示
+// 第二次循环返回值为
+function (...args) {
+  return (function (...args) {
+    return a(b(...args))
+  })(c(...args))
+}
+// 整理后
+function (...args) {
+  return a(b(c(...args)))
+}
+```
+
+所以 <code>[a, b, c, d, e]</code> 的执行结果是 <code>(...args) => a(b(c(d(e(...args)))))</code>。
+
+所以能看出来，funcs 内函数需要满足 函数参数和函数返回值结构一致。
+
+<br />
+
+## <span id="applyMiddleware">applyMiddleware</span>
+
+洋葱圈模型图
+
+先看看 createStore 的第三个参数 <span id="enhancer">enhancer</span>
+
+```js
+function createStore(reducer, preloadedState, enhancer) {
+  // 实现了 preloadedState 参数可以省略
+  if (typeof preloadedState === 'function' && typeof enhancer === 'undefined') {
+    enhancer = preloadedState
+    preloadedState = undefined
+  }
+
+  if (typeof enhancer !== 'undefined') {
+    // 看起来 enhancer 是个高阶函数，返回值还是 store creator
+    // 可以看出 enhancer 的大概结构为
+    // (createStore) => (reducer, preloadedState) => createStore(educer, preloadedState)
+    return enhancer(createStore)(reducer, preloadedState)
+  }
+
+  // 这里是其他代码
+  // ...
+}
+```
+
+再看看官网给的 applyMiddleware 使用例子
+
+```js
+let store = createStore(
+  todos,
+  [ 'Use Redux' ],
+  applyMiddleware(logger)
+)
+```
+
+所以 applyMiddleware 的结构应该是
+
+```js
+(...middlewares) => (createStore) => (reducer, preloadedState) => createStore(educer, preloadedState)
+```
+
+所以猜出来了 applyMiddleware 的参数是函数，返回值执行多次后还是 createStore(educer, preloadedState)。
+
+所以再来看官方定义就比较好理解
+
+> Middleware 可以让你包装 store 的 dispatch 方法来达到你想要的目的。同时， middleware 还拥有“可组合”这一关键特性。多个 middleware 可以被组合到一起使用，形成 middleware 链。其中，每个 middleware 都不需要关心链中它前后的 middleware 的任何信息。
+
+来看 applyMiddleware 看源码， 跟着 序号看会稍微清晰点：
+
+```js
+applyMiddleware(...middlewares) {
+  return (createStore) => (reducer, preloadedState, enhancer) => {
+    const store = createStore(reducer, preloadedState, enhancer)
+    let dispatch = store.dispatch
+    let chain = []
+
+    const middlewareAPI = {
+      getState: store.getState,
+      dispatch: (action) => dispatch(action)
+    }
+
+    // 2、chain内元素结构为 (store.dispatch) => store.dispatch
+    //    所以 middleware(middlewareAPI) 结果为 (store.dispatch) => store.dispatch
+    //    所以 middleware 结构为 (middlewareAPI) => (store.dispatch) => store.dispatch
+    //    即 参数 middlewares 内元素结构为 (middlewareAPI) => (store.dispatch) => store.dispatch
+    chain = middlewares.map(middleware => middleware(middlewareAPI))
+
+    // 1、上面解释过 compose 的返回值是 (...arg) => a(b(c(...arg)))，
+    //    所以下面 dispatch = ((...arg) => a(b(c(...arg))))(store.dispatch)
+    //    即 dispatch = a(b(c(store.dispatch)))
+    //    所以 a、b、c 即 chain内元素 的结构需要为 (store.dispatch) => store.dispatch
+    dispatch = compose(...chain)(store.dispatch)
+
+    return {
+      ...store,
+      dispatch  // 这里可以看出，applyMiddleware 只包装替换了 createStore 的 dispatch
+    }
+  }
+}
+```
+
+现在我们知道了 applyMiddleware 的参数结构是 <code>(middlewareAPI) => (store.dispatch) => store.dispatch</code>，然后我们来写个简单的 middleware
+
+```js
+// 原始长这个样子
+function logger(middlewareAPI) {
+  return (dispatch) => dispatch;
+}
+
+// 然后 给 dispatch 包装以下，并且换个名字叫 next
+function logger(middlewareAPI) {
+  return (next) => (action) => {
+    let value = next(action);
+    return value;
+  };
+}
+
+// 然后 加入功能
+function logger(middlewareAPI) {
+  return (next) => (action) => {
+    // 这里的 dispatch 是 createStore 创建的。一般不用。
+    const { getState, dispatch } = middlewareAPI;
+
+    console.log('will dispatch', action);
+
+    let value = next(action);
+
+    console.log('state after dispatch', getState());
+
+    // createStore 里实现的 dispatch 返回 action，
+    // 一般会是 action 本身，除非
+    // 后面的 middleware 修改了它。
+    return value;
+  };
+}
+```
+
+总结这几个结构
+
+```js
+// compose
+([a, b, c, d, e]) => (...args) => a(b(c(d(e(...args)))))
+
+// applyMiddleware
+(...middlewares) => (createStore) => (reducer, preloadedState) => createStore(educer, preloadedState)
+
+// middleware
+(middlewareAPI) => (dispatch) => dispatch
+```
