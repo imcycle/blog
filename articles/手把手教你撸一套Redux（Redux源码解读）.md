@@ -1,6 +1,6 @@
 # 手把手教你撸一套Redux（Redux源码解读）
 
-版本：3.7.2
+Redux 版本：3.7.2
 
 > Redux 是 JavaScript 状态容器，提供可预测化的状态管理。
 
@@ -19,6 +19,8 @@ Redux 提供了五个方法
 * <a href="#applyMiddleware">applyMiddleware</a>
 
 接下来我们来一一解析。
+
+<br />
 
 ## <span id="createStore">createStore</span>
 
@@ -118,7 +120,9 @@ export default (state = initialState, action) => {
 }
 ```
 
-给 createStore 添加两个参数 reducer, preloadedState。 preloadedState选传，不传 currentState 默认值就是 undefined。
+给 createStore 添加两个参数 reducer, preloadedState。
+
+preloadedState非必传，如果不传，currentState 默认值就是 undefined。
 
 在 createStore 中添加初始化方法 <code>dispatch({ type: '@@redux/INIT' })</code> ; 初始化的 action.type 必须是 reducer 中没有使用过的，Redux 源码中使用了 <code>'@@redux/INIT'</code>。初始化方法会执行一次 dispatch。
 
@@ -217,11 +221,28 @@ function createStore(reducer, preloadedState) {
 }
 ```
 
-createStore 的实现思路大概就是这样子，Redux 源码中又做了大量的错误校验。
+createStore 的实现到这里已经完成，Redux 源码除此之外还做了大量的错误校验。
+
+<br />
 
 ## <span id="combineReducers">combineReducers</span>
 
 随着项目越来越大，把 reducer 放在一个文件里写会越来越臃肿，于是 Redux 提供了 combineReducers 方法。
+
+先来看下如何使用
+
+```js
+rootReducer = combineReducers({potato: potatoReducer, tomato: tomatoReducer})
+// rootReducer 将返回如下的 state 对象
+{
+  potato: {
+    // ... potatoes, 和一些其他由 potatoReducer 管理的 state 对象 ...
+  },
+  tomato: {
+    // ... tomatoes, 和一些其他由 tomatoReducer 管理的 state 对象，比如说 sauce 属性 ...
+  }
+}
+```
 
 combineReducers 参数是 reducers 对象，返回一个合成后的 reducer。
 
@@ -231,23 +252,30 @@ combineReducers 参数是 reducers 对象，返回一个合成后的 reducer。
 
 ```js
 function combineReducers(reducers) {
-  const reducerKeys = Object.keys(reducers);
+  const reducerKeys = Object.keys(reducers);  // key[]
   return function combination(state = {}, action) {
-    let hasChanged = false;
-    const nextState = {};
+    let hasChanged = false;  // state 是否改变
+    const nextState = {};  // 改变后的 state
+
+    // 循环 reducers
     reducerKeys.forEach(key => {
-      const reducer = reducers[key];
-      const previousStateForKey = state[key];
-      const nextStateForKey = reducer(previousStateForKey, action);
+      const reducer = reducers[key];  // 当前 reducer
+      const previousStateForKey = state[key];  // 当前 state
+      const nextStateForKey = reducer(previousStateForKey, action);  // 如果 没有匹配到action.type，会在 reducer 中的 switch default 返回传入的 state，即 previousStateForKey
       nextState[key] = nextStateForKey;
       hasChanged = hasChanged || nextStateForKey !== previousStateForKey;
     })
+
     return hasChanged ? nextState : state;
   }
 }
 ```
 
+<br />
+
 ## <span id="bindActionCreators">bindActionCreators</span>
+
+bindActionCreators(actionCreators, dispatch) 把一个 value 为不同 action creator 的对象，转成拥有同名 key 的对象。
 
 action 生成器名字叫做叫 action creator, 如下
 
@@ -266,7 +294,15 @@ function addTodo(text) {
 dispatch(addTodo('Use Redux'))
 ```
 
-如果我们多个 action creator，写起来会比较繁琐，所以 Redux 提供了 bindActionCreators 函数，传入 action creators 和 dispatch, 返回绑定了 dispatch 的 action creators。
+如果我们多个 action creator，写起来会比较繁琐，
+
+```js
+dispatch(addTodo('Use Redux'))
+dispatch(plusTodo())
+dispatch(setDataTodo({ id: 1 }))
+```
+
+所以 Redux 提供了 bindActionCreators 函数，传入 action creators 和 dispatch, 返回绑定了 dispatch 的 action creators。
 
 实现也很简单，遍历 actionCreators, 把每个元素用 dispatch 处理后生成新的函数，返回新函数的集合。
 
@@ -283,6 +319,21 @@ function bindActionCreators(actionCreators, dispatch) {
   })
   return boundActionCreators;
 }
+```
+
+使用 bindActionCreators 写起来就会方便很多
+
+```js
+const boundActionCreators = bindActionCreators({
+  addTodo,
+  plusTodo,
+  setDataTodo,
+}, dispatch);
+
+// 写入数据
+boundActionCreators.addTodo('Use Redux')
+boundActionCreators.plusTodo()
+boundActionCreators.addTodo({ id: 1 })
 ```
 
 Redux 支持 actionCreators 是一个单个 action creator 的函数，所以提取公共方法。改造如下：
@@ -307,6 +358,8 @@ function bindActionCreators(actionCreators, dispatch) {
   return boundActionCreators;
 }
 ```
+
+<br />
 
 ## <span id="compose">compose</span>
 
@@ -379,7 +432,9 @@ function (...args) {
 
 ## <span id="applyMiddleware">applyMiddleware</span>
 
-洋葱圈模型图
+applyMiddleware 是把 dispatch 一层一层包装。洋葱圈模型。
+
+<img style="width: 500px;" src="https://img2020.cnblogs.com/blog/1141466/202005/1141466-20200511232735325-1615789410.png" />
 
 先看看 createStore 的第三个参数 <span id="enhancer">enhancer</span>
 
@@ -495,7 +550,7 @@ function logger(middlewareAPI) {
 }
 ```
 
-总结这几个结构
+最后再来回味下 applyMiddleware 的这几个结构
 
 ```js
 // compose
@@ -507,3 +562,5 @@ function logger(middlewareAPI) {
 // middleware
 (middlewareAPI) => (dispatch) => dispatch
 ```
+
+<br />
