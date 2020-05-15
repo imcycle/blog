@@ -46,3 +46,5 @@ n rm 0.9.4 v0.10.0
 ```bash
 n
 ```
+
+__注意：如果用 npm 方式安装，下载和之前 node 一样的版本时，会安装不成功 “dyld: initializer function 0x0 not in mapped image for /usr/local/bin/node”， 需要删除之前的 node 的配置。__
