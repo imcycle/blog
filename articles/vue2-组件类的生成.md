@@ -27,8 +27,8 @@ if (isObject(Ctor)) {
  * Class inheritance
  */
 Vue.extend = function (extendOptions) {
-  extendOptions = extendOptions || {};
-  var Super = this;
+  extendOptions = extendOptions || {};  // 是暴露的组件对象，会放在 Sub.options 上，在 _init 时候调用 initInternalComponent 生成 $options
+  var Super = this;  // this 是 Vue
   var SuperId = Super.cid;
   var cachedCtors = extendOptions._Ctor || (extendOptions._Ctor = {});
   if (cachedCtors[SuperId]) {
@@ -41,7 +41,7 @@ Vue.extend = function (extendOptions) {
     this._init(options);
   };
   Sub.prototype = Object.create(Super.prototype);
-  Sub.prototype.constructor = Sub;
+  Sub.prototype.constructor = Sub;  // _init 时候 var opts = vm.$options = Object.create(vm.constructor.options);
   Sub.cid = cid++;
   Sub.options = mergeOptions(
     Super.options,
