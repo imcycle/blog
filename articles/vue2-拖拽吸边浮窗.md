@@ -37,6 +37,12 @@ Vue.js v2.6.14
 1. 给 iframe 添加禁用事件 iframe { pointer-events:none; } ；但是会导致 iframe 事件全部失效，不推荐。
 2. 放一个全局遮罩层，鼠标按下时 display: block ，鼠标抬起时 display: none ；推荐。（为了防止事件失效，遮罩层一直存在，导致用户无法操作，设置 3s 内没有监听到移动事件，自动执行抬起事件）
 
+### 拖动图片显示禁止拖动图标
+
+如果拖动 div 中有图片，拖动时图片会显示禁止拖动的图标。
+
+解决方案：给 img 添加 draggable="false"
+
 ## 实现代码
 
 ```javascript
