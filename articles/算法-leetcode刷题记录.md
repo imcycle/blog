@@ -1,8 +1,12 @@
-# 算法 —— LeetCode 刷题记录
+# LeetCode 刷题笔记
 
 ## 单调栈
 
-https://leetcode-cn.com/problems/next-greater-element-i/
+单调递增，单调递减。
+
+一次 for 循环中， while 循环删除之前不符合的元素，插入当前元素。
+
+[496. 下一个更大元素 I](https://leetcode-cn.com/problems/next-greater-element-i/)
 
 ## 摩尔投票
 
@@ -86,4 +90,35 @@ var isPrime = function (n) {
 
   return true
 }
+```
+
+## 水塘抽样
+
+在一堆样品中，找到随机一个符合要求的样品。不占用额外空间。
+
+思路是 (1/1)*(1 - 1/2)*(1 - 1/3)*(1 - 1/k) = 1/k
+
+[398. 随机数索引](https://leetcode-cn.com/problems/random-pick-index/solution/sui-ji-shu-suo-yin-by-leetcode-solution-ofsq/)
+
+## 凸包
+
+在一堆点中，找到连线最大的一圈点。
+
+[587. 安装栅栏](https://leetcode-cn.com/problems/erect-the-fence/)
+
+详解可以看官方解法，不过官方解法 JavaScript 方法一有错误，应该改正两点：1.以左上点为原点，2.同以直线的点，应该用距离 p 最远的点作为下一个 q 。
+
+### Jarvis 算法
+
+思路是：以左顶点为原点 p ，找到下一个点 q，满足其余的点 r 均在向量 pq 的左边，然后 p=q ，下一轮寻找。
+
+可以使用 「向量叉积」 来判断：
+
+```javascript
+// 返回值大于0，表示夹脚小于180度；
+// 等于0，表示在一条直线；
+// 小于0，表示大于180度。
+const cross = (p, q, r) => {
+    return (q[0] - p[0]) * (r[1] - q[1]) - (q[1] - p[1]) * (r[0] - q[0]);
+};
 ```
