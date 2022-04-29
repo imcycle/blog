@@ -122,3 +122,24 @@ const cross = (p, q, r) => {
     return (q[0] - p[0]) * (r[1] - q[1]) - (q[1] - p[1]) * (r[0] - q[0]);
 };
 ```
+
+### 二维前缀和
+
+计算二维数组中，[0,0] -> [r,c] 区域和 nums。
+
+用于快速计算 [r0,c0] -> [r1,c1] 的区域和。
+
+```javascript
+var grid = [[1,2], [2,3]]
+var r = grid.length
+var c = grid[0].length
+var sums = new Array(r + 1).fill(0).map(() => new Array(c + 1).fill(0))
+for (var i = 0; i < r; i++) {
+    for (var j = 0; j < c; j++) {
+        sums[i + 1][j + 1] = sums[i + 1][j] + sums[i][j + 1] - sums[i][j] + grid[i][j]
+    }
+}
+```
+
+* [427. 建立四叉树](https://leetcode-cn.com/problems/construct-quad-tree/solution/jian-li-si-cha-shu-by-leetcode-solution-gcru/)
+* [304. 二维区域和检索 - 矩阵不可变](https://leetcode-cn.com/problems/range-sum-query-2d-immutable/)
