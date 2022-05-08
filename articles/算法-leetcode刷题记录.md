@@ -123,7 +123,7 @@ const cross = (p, q, r) => {
 };
 ```
 
-### 二维前缀和
+## 二维前缀和
 
 计算二维数组中，[0,0] -> [r,c] 区域和 nums。
 
@@ -143,3 +143,11 @@ for (var i = 0; i < r; i++) {
 
 * [427. 建立四叉树](https://leetcode-cn.com/problems/construct-quad-tree/solution/jian-li-si-cha-shu-by-leetcode-solution-gcru/)
 * [304. 二维区域和检索 - 矩阵不可变](https://leetcode-cn.com/problems/range-sum-query-2d-immutable/)
+
+## 贪心算法
+
+在对问题求解时，总是做出在当前看来是最好的选择。也就是说，不从整体最优上加以考虑，算法得到的是在某种意义上的局部最优解。
+
+以迭代的方法做出相继的贪心选择，每做一次贪心选择，就将所求问题简化为一个规模更小的子问题，通过每一步贪心选择，可得到问题的一个最优解。
+
+* [942. 增减字符串匹配](https://leetcode-cn.com/problems/di-string-match/)
