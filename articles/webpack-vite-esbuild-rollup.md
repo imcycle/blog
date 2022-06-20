@@ -65,6 +65,14 @@ if (module.hot) {
 
 这片文章也写的比较详细：[120 行代码帮你了解 Webpack 下的 HMR 机制](https://juejin.cn/post/6973825927708934174)
 
+### UmiJS
+
+umijs 基于 webpack 。
+
+mfsu（Module Federation Speed Up）。核心原理是将应用的依赖构建为一个 Module Federation 的 remote 应用，以免去应用热更新时对依赖的编译。
+
+[Umi](https://umijs.org/zh-CN/docs)，中文可发音为乌米，是可扩展的企业级前端应用框架。Umi 以路由为基础的，同时支持配置式路由和约定式路由，保证路由的功能完备，并以此进行功能扩展。然后配以生命周期完善的插件体系，覆盖从源码到构建产物的每个生命周期，支持各种功能扩展和业务需求。
+
 ## vite
 
 开发坏境：
