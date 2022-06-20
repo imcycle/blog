@@ -1,6 +1,6 @@
 # Webpack、Vite、Rollup、Esbuild 对比
 
-|方式|web 开发|生产构建|
+|工具|web 开发|生产构建|
 |-|-|-|
 |Webpack|bundle + HMR|webpack|
 |Vite|Esbuild 预构建 + no bundle + ESM + HMR|rollup|
@@ -11,26 +11,16 @@
 
 本质上，webpack 是一个现代 JavaScript 应用程序的静态模块打包器(module bundler)。当 webpack 处理应用程序时，它会递归地构建一个依赖关系图(dependency graph)，其中包含应用程序需要的每个模块，然后将所有这些模块打包成一个或多个 bundle。
 
-* 开发：webpack + webpack-dev-server
+* 开发：webpack + webpack-dev-server（HMR）
 * 打包：webpack
 
 开发中，启动前打包，代码改变后，重新打包。
 
-## vite
-
-开发坏境：
-
-* esbuild 依赖预构建（一个依赖生成一个 esm 模块，支持 cjs，减少请求数量）
-* 即时的模块热更新，基于 ESM 的 HMR（hot module replacement）
-* 真正的按需加载: 利用浏览器 ESM 支持（拦截 esm 的 get 请求，打包返回）
-
-生产打包：rollup
-
-[深入理解Vite核心原理](https://juejin.cn/post/7064853960636989454)
-
 ### HMR（Hot Module Replacement）
 
-出现背景：传统 live reload 方式会刷新页面，无法保存应用状态。HMR 实现按模块更新，不会丢失应用状态。
+出现背景：传统 live reload 方式会刷新页面，无法保存应用状态。
+
+HMR 实现按模块更新，不会丢失应用状态。
 
 传统 live reload 方式：
 
@@ -74,6 +64,18 @@ if (module.hot) {
 ```
 
 这片文章也写的比较详细：[120 行代码帮你了解 Webpack 下的 HMR 机制](https://juejin.cn/post/6973825927708934174)
+
+## vite
+
+开发坏境：
+
+* esbuild 依赖预构建（一个依赖生成一个 esm 模块，支持 cjs，减少请求数量）
+* 即时的模块热更新，基于 ESM 的 HMR（hot module replacement）
+* 真正的按需加载: 利用浏览器 ESM 支持（拦截 esm 的 get 请求，打包返回）
+
+生产打包：rollup
+
+[深入理解Vite核心原理](https://juejin.cn/post/7064853960636989454)
 
 ## Rollup
 
