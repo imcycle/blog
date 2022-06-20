@@ -228,15 +228,25 @@ img {
 }
 ```
 
-## 透明背景效果
+## ps png 透明效果
 
 ```css
-background-color: #fff;
-background-image: linear-gradient(to top right,#ccc 25%,transparent 0,transparent 75%,#ccc 0,#ccc),linear-gradient(to top right,#ccc 25%,transparent 0,transparent 75%,#ccc 0,#ccc);
-background-position: 0 0,8px 8px;
-background-size: 16px 16px;
+.bg {
+  background-color: #fff;
+  background-image: linear-gradient(to top right,#ccc 25%,transparent 0,transparent 75%,#ccc 0,#ccc),linear-gradient(to top right,#ccc 25%,transparent 0,transparent 75%,#ccc 0,#ccc);
+  background-position: 0 0,8px 8px;
+  background-size: 16px 16px;
+}
 ```
 
+## 磨砂背景效果
+
+```css
+.bg {
+  backdrop-filter: saturate(50%) blur(8px);
+  -webkit-backdrop-filter: saturate(50%) blur(8px);
+}
+```
 
 
 
