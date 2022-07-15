@@ -151,3 +151,19 @@ for (var i = 0; i < r; i++) {
 以迭代的方法做出相继的贪心选择，每做一次贪心选择，就将所求问题简化为一个规模更小的子问题，通过每一步贪心选择，可得到问题的一个最优解。
 
 * [942. 增减字符串匹配](https://leetcode-cn.com/problems/di-string-match/)
+
+## 字典树
+
+又称单词查找树，Trie树，是一种树形结构，是一种哈希树的变种。
+
+```typescript
+// https://github.com/trekhleb/javascript-algorithms/tree/master/src/data-structures/trie
+// github javascript-algorithms 实现的 trie 结构如下：
+type TrieNode = {
+  character: string;
+  isCompleteWord: boolean;
+  children: HashTable; // HashTable 类似 Map ，有 get set has delete getKeys getValues 方法
+}
+```
+
+* [745. 前缀和后缀搜索](https://leetcode.cn/problems/prefix-and-suffix-search/)
