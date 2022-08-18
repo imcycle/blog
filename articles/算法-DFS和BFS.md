@@ -105,7 +105,7 @@ var dfs = function(node) {
 
 ## 广度遍历
 
-队列
+### 方法一：队列
 
 * callbacks.allowTraversal 是否允许遍历
 * callbacks.enterNode 进入节点
@@ -136,6 +136,53 @@ breadthFirstSearch(rootNode, callbacks) {
     }
 
     callbacks.leaveNode(currentNode);
+  }
+}
+```
+
+#### 区分层
+
+假如需要找到最后一层，或者需要找到其中某一层，需要稍微改造
+
+1. 添加变量记录层数量
+2. while 中 for 循环当前层
+
+```javascript
+var bfs = function (root) {
+  var queue = [root]
+  while (queue.length) {
+    var size = queue.length
+    for (var i = 0; i < size; i++) {
+      var node = queue.shift()
+      if (node.left) {
+        queue.push(node.left)
+      }
+      if (node.right) {
+        queue.push(node.right)
+      }
+    }
+  }
+}
+```
+
+### 方法二：栈x
+
+栈的每一帧记录每一层，没特殊要求的情况下，只需要保留一层。一维数组即可。（如有需要，使用 stack 保留每一层。）
+
+```javascript
+var fn = function (root) {
+  var arr = [root] // 当前层
+  while (arr.length) {
+    var newArr = [] // 下一层
+    for (var v of arr) {
+      if (v.left) {
+        newArr.push(v.left)
+      }
+      if (v.right) {
+        newArr.push(v.right)
+      }
+    }
+    arr = newArr
   }
 }
 ```
