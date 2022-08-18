@@ -12,7 +12,7 @@ version: 2020-08-12（不同版本 flex 规则有差异，例如 flex-basis: aut
 
 例如现在有两个div，有多余空间：
 
-```w1 = basis1 + (basis1 * grow1) / (basis1 * grow1 + basis2 * grow2) * more```
+**w1 = basis1 + (basis1 * grow1) / (basis1 * grow1 + basis2 * grow2) * more**
 
 简单来说，如果 grow 都是 1 ，有多余空间的话，谁 basis 大，谁就分的多。
 
