@@ -1,10 +1,6 @@
 # flex 布局扩大压缩分配规则分析（grow shrink basis）
 
-2020-08-12
-
-先来看例子
-
-todo
+version: 2020-08-12（不同版本 flex 规则有差异，例如 flex-basis: auto 的定义）
 
 ## grow shrink basis 含义
 
@@ -31,7 +27,7 @@ flex-basis 属性比 width 优先级高。
 |flex: initial|flex: 0 1 auto|
 |flex: auto|flex: 1 1 auto|
 |flex: none|flex: 0 0 auto|
-|flex: <positive-number>|flex: <positive-number> <positive-number> 0|
+|flex: positive-number|flex: positive-number positive-number 0|
 
 ## 例子分析
 
@@ -79,33 +75,34 @@ flex-basis 属性比 width 优先级高。
 
 解析：虽然上下效果一样，但是上面走的 压缩 逻辑，下面走的 扩大 逻辑。
 
+## 关于宽度溢出
 
-## 特殊情况，长单词
-
-todo..
-
-## width: 0 和 flex-basis: 0 和 min-width: 0
-
-todo..
-
-## 其他例子
+一般情况，如果宽度不足，按照 flex-shrink 规则压缩，但是遇到**长单词**时，可能会宽度溢出，如下：
 
 ```html
-  <div style="width: 200px; display: flex">
-    <div style="flex: 1; display: flex; min-width: 0">
-      <div style="flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 0">
-        我为啥省略的这么奇怪。我为啥省略的这么奇怪。
-      </div>
-      <div style="flex: 0 0 auto">内容不固定</div>
-    </div>
-    <div style="flex: 0 0 auto">内容不固定</div>
-  </div>
+<div style="display: flex; width: 40px">
+  <div style="flex: 1">aaaaaaaaaaaaaaa</div>
+  <div style="flex: 1">bbbbbbbbbbbbbbb</div>
+</div>
 ```
 
+上面例子会超过 40px ，子节点超出，为什么呢？
 
+* flex: 1; 是 flex: 1 1 0; 的缩写, flex-basisi 值为 0
+* **默认情况下，flex 选项不会缩小低于他的最小内容尺寸**
+* 连续字母或数字，会被认为是一个单词。即为最小尺寸
+* 所以长度超出。
 
+### 防止溢出
 
+```flex-basis: 0;``` 依然会有最小内容限制，导致宽度溢出，如下方法可以防止溢出：
 
+* 方法一：子盒子添加 ```min-width: 0;``` ，shrink 压缩时，最小到 0 。
+* 方法二：子盒子添加 ```width: 0;```，走 grow 扩大逻辑，以 basis 为 0 计算。
+
+这两种方法，只是防止子盒子实际宽度溢出，但子盒子的内容还会溢出。需要添加 ```overflow: hidden;```
+
+## 其他例子
 
 ```html
 <!DOCTYPE html>
@@ -206,8 +203,7 @@ todo..
 
 ```
 
-
-
+## 参考
 
 * https://www.w3.org/TR/2016/CR-css-flexbox-1-20160301/#min-size-auto
 * https://zhuanlan.zhihu.com/p/509874446
