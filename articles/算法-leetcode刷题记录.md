@@ -167,3 +167,7 @@ type TrieNode = {
 ```
 
 * [745. 前缀和后缀搜索](https://leetcode.cn/problems/prefix-and-suffix-search/)
+
+## 差分数组
+
+https://leetcode.cn/problems/number-of-students-doing-homework-at-a-given-time/solution/zai-ji-ding-shi-jian-zuo-zuo-ye-de-xue-s-uv49/
