@@ -162,7 +162,7 @@ img {
 
 ## 卡券效果
 
-![](http://storage.icyc.cc/p/20211025/rc-upload-1635130175401-3.png)
+![卡券效果](http://storage.icyc.cc/p/20211025/rc-upload-1635130175401-3.png)
 
 ```css
 .coupon {
@@ -197,7 +197,7 @@ img {
 
 ## 纯 CSS 绘制三角形
 
-![](http://storage.icyc.cc/p/20211025/rc-upload-1635130175401-7.png)
+![绘制三角形](http://storage.icyc.cc/p/20211025/rc-upload-1635130175401-7.png)
 
 ```css
 /* 正三角 */
@@ -248,6 +248,13 @@ img {
 }
 ```
 
+## 网页灰白配色
 
+[grayscale()](https://developer.mozilla.org/zh-CN/docs/Web/CSS/filter-function/grayscale) : 对图片进行灰度转换。
 
-
+```css
+html {
+  filter: grayscale(.95);
+  -webkit-filter: grayscale(.95);
+}
+```
