@@ -6,7 +6,7 @@ Vue3 使用 Proxy 代理，Reflect 反射。下面手写仅仅处理了重要功
 
 1. 某些返回值更加合理。（Object.defineProperty(obj, name, desc)在无法定义属性时，会抛出一个错误，而Reflect.defineProperty(obj, name, desc)则会返回false。）
 2. 让 Object 操作都变成函数行为。统一操作格式。（delete obj[name] -> Reflect.deleteProperty(obj, name)）
-3. Reflect 与 Proxy API 一一对应。
+3. Reflect 与 Proxy API 一一对应。对 receiver 的处理。
 
 ## 响应式 handlers 实现
 
@@ -15,7 +15,7 @@ const isObject = (val) => val !== null && typeof val === "object";
 
 // 生成 get 方法
 function createGetter(isReadonly = false, shallow = false) {
-  return function get(target, key) {
+  return function get(target, key, receiver) {
     if (key === "__v_isReactive") {
       return !isReadonly;
     } else if (key === "__v_isReadonly") {
@@ -23,7 +23,7 @@ function createGetter(isReadonly = false, shallow = false) {
     } else if (key === "__v_isShallow") {
       return shallow;
     }
-    const res = Reflect.get(target, key);
+    const res = Reflect.get(target, key, receiver);
     if (shallow) {
       return res;
     }
@@ -40,8 +40,8 @@ function createGetter(isReadonly = false, shallow = false) {
 
 const reactiveHandlers = {
   get: createGetter(),
-  set(target, key, value) {
-    return Reflect.set(target, key, value);
+  set(target, key, value, receiver) {
+    return Reflect.set(target, key, value, receiver);
   },
   deleteProperty(target, key) {
     return Reflect.deleteProperty(target, key);
