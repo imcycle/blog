@@ -1,4 +1,4 @@
-# vscode snippets
+# vscode 配置 snippets （代码片段）
 
 [vscode snippets 官方文档](https://code.visualstudio.com/docs/editor/userdefinedsnippets)
 
