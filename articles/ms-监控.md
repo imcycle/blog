@@ -1,0 +1,72 @@
+# ms-监控
+
+## 监控什么？
+
+- 性能（白屏、首屏、可交互时间、外部资源调用）
+- 页面的错误
+- 用户使用信息、埋点信息（pv，uv，曝光时间）
+
+## 如何数据收集？
+
+## 性能
+
+[腾讯前端团队是如何做 web 性能监控的？](https://cloud.tencent.com/developer/article/1650831)
+[蚂蚁金服如何把前端性能监控做到极致?](https://www.infoq.cn/article/dxa8am44oz*lukk5ufhy)
+
+performance 分析
+
+不重复的耗时时段区分：
+
+重定向耗时: redirectEnd - redirectStart
+DNS 解析耗时: domainLookupEnd - domainLookupStart
+TCP 连接耗时: connectEnd - connectStart
+SSL 安全连接耗时: connectEnd - secureConnectionStart
+网络请求耗时 (TTFB): responseStart - requestStart
+HTML 下载耗时：responseEnd - responseStart
+DOM 解析耗时: domInteractive - responseEnd
+资源加载耗时: loadEventStart - domContentLoadedEventEnd
+其他组合分析：
+
+白屏时间: domLoading - fetchStart
+粗略首屏时间: loadEventEnd - fetchStart 或者 domInteractive - fetchStart
+DOM Ready 时间: domContentLoadEventEnd - fetchStart
+页面完全加载时间: loadEventStart - fetchStart
+
+采集数据：将performance navagation timing 中的所有点都上报
+
+何时上报：google 推荐 window.addEventListener("unload", fn)
+
+### 异常捕获
+
+- try catch 手动捕获
+- promise .catch
+- window.onerror 或 window.addEventListener("error", fn) 捕获运行时错误
+- window.addEventListener("error", fn, true) 捕获阶段，必须要第三个参数 true ，可以拿到静态资源异常
+- unhandledrejection 捕获 promise 错误
+- window.frames[0].onerror (或 addEventListener) iframe 异常
+- VUE errorHandler 和 React componentDidCatch
+
+### 埋点原理
+
+- 手动埋点
+- 无埋点：前端自动采集全部事件，上报埋点数据，后端过滤出有用的数据。
+
+## 数据如何发送？
+
+[为什么通常在发送数据埋点请求的时候使用的是 1x1 像素的透明 gif 图片](https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/87)
+
+谷歌和百度的都是用的 1x1 像素的透明 gif 图片
+
+- 没有跨域问题
+- 不会阻塞页面加载
+- 在所有图片中，体积最小；（比较 PNG/JPG）
+
+## 目前比较火的第三方或自己搭建
+
+- GrowingIO
+- 百度统计
+
+- Fundebug
+- Bugsnag
+- Badjs
+- Sentry
