@@ -1,4 +1,4 @@
-# 讯飞星火、chardoc、charpdf PDF 定位功能实现原理分析
+# 讯飞星火、charDOC 与 charPDF：PDF 定位功能解析
 
 他们三个前端使用的都是 pdfjs 。
 
@@ -384,6 +384,8 @@ class TextHighlighter {
 
 ## ChatDOC 文档问答
 
+他们使用的技术是自家的 [PDFlux](https://webtool.pdflux.com/#/) 。
+
 效果图：
 
 ![chardoc 效果](http://storage.icyc.cc/p/20230901/rc-upload-1693564792530-14.jpeg)
@@ -394,8 +396,12 @@ ChatDOC 使用更加精湛，用了注释层 annotationLayer 。后续所有的�
 
 ![chardoc html](http://storage.icyc.cc/p/20230901/rc-upload-1693564792530-8.jpeg)
 
+## chatPDF 文档问答
 
+效果图：
 
-## chatpdf
+![chatPDF 效果图](http://storage.icyc.cc/p/20230918/rc-upload-1695041651539-2.jpeg)
 
+chatPDF 的实现比较好理解，接口返回 4 个点坐标，前端画框。
 
+![chatPDF 代码实现](http://storage.icyc.cc/p/20230918/rc-upload-1695041651539-5.jpeg)
